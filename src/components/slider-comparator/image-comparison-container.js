@@ -9,7 +9,7 @@ const after = "https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg";
 
 class ImageComparisonContainer extends Component {
   state = {
-    separatorLeft: 55,
+    separatorLeft: 0.55,
     scrollState: false
   };
 
@@ -28,6 +28,10 @@ class ImageComparisonContainer extends Component {
         onScrollStateChange={this.handleScrollStateChange}
         onSliderClick={this.handleSliderClick}
         onChangeSeparatorPosition={this.handleChangeSeparatorPosition}
+        onClick={this.handleClick}
+        onMouseDown={this.handleClick}
+        onMouseUp={this.handleClick}
+        onMouseMove={this.handleClick}
       >
         <InfoPoint
           title="Автоматическая система открытия/закрытия"
@@ -60,10 +64,10 @@ class ImageComparisonContainer extends Component {
     const { width, left } = this.sliderElement.getBoundingClientRect();
 
     const separatorPosition = e.clientX - left;
-    const persentSeparatorPosition = (separatorPosition * 100) / width;
+    const persentSeparatorPosition = separatorPosition / width;
 
-    if (persentSeparatorPosition > 100) {
-      return 100;
+    if (persentSeparatorPosition > 1) {
+      return 1;
     }
     if (persentSeparatorPosition < 0) {
       return 0;

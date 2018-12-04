@@ -16,6 +16,9 @@ class ImageComparison extends Component {
       Ref,
       children
     } = this.props;
+
+    const percentLeftPosition = `${separatorPosition.left * 100}%`;
+
     return (
       <div
         className={cn("ImageComparison", {
@@ -31,7 +34,7 @@ class ImageComparison extends Component {
           </div>
           <div
             className="ImageComparison-afterImageHolder"
-            style={{ width: `${separatorPosition.left}%` }}
+            style={{ width: percentLeftPosition }}
           >
             <img className="ImageComparison-image" src={after} alt="" />
           </div>
@@ -39,7 +42,7 @@ class ImageComparison extends Component {
         <div className="ImageComparison-infoPoints">{children}</div>
         <div
           className="ImageComparison-separator"
-          style={{ left: `${separatorPosition.left}%` }}
+          style={{ left: percentLeftPosition }}
           onMouseDown={this.handleScrollerMouseDown}
           onMouseUp={this.handleScrollerMouseUp}
         >
