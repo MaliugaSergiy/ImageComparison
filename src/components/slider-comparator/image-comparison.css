@@ -64,13 +64,19 @@
 
 .ImageComparison-separator {
   position: absolute;
-  background-color: #fff;
-  width: 2px;
   transform: translateX(-50%);
   top: 0;
   bottom: 0;
   cursor: e-resize;
+  padding: 0 8px;
 }
+
+.ImageComparison-separatorLine {
+  background-color: #fff;
+  width: 2px;
+  height: 100%;
+}
+
 .ImageComparison-separatorThumb {
   position: absolute;
   background-color: rgb(171, 221, 148);

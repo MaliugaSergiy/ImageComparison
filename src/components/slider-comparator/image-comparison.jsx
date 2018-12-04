@@ -43,7 +43,9 @@ class ImageComparison extends Component {
           onMouseDown={this.handleScrollerMouseDown}
           onMouseUp={this.handleScrollerMouseUp}
         >
-          <div className="ImageComparison-separatorThumb" />
+          <div className="ImageComparison-separatorLine">
+            <div className="ImageComparison-separatorThumb" />
+          </div>
         </div>
       </div>
     );
