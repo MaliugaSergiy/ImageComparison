@@ -8,8 +8,15 @@ import "./slider-comparator.css";
 
 class SliderComparator extends Component {
   static propTypes = {};
+
   render() {
-    const { images, scrollState, separatorPosition } = this.props;
+    const {
+      imageBefore,
+      imageAfter,
+      scrollState,
+      separatorPosition,
+      sliderRef
+    } = this.props;
     return (
       <div
         className={cn("SliderComparator", {
@@ -17,16 +24,17 @@ class SliderComparator extends Component {
         })}
         onMouseMove={this.handleSliderMouseMove}
         onClick={this.handleSliderClick}
+        ref={sliderRef}
       >
         <div className="SliderComparator-images">
           <div className="SliderComparator-beforeImageHolder">
-            <img className="SliderComparator-image" src={images[1]} alt="" />
+            <img className="SliderComparator-image" src={imageBefore} alt="" />
           </div>
           <div
             className="SliderComparator-afterImageHolder"
             style={{ width: `${separatorPosition}%` }}
           >
-            <img className="SliderComparator-image" src={images[0]} alt="" />
+            <img className="SliderComparator-image" src={imageAfter} alt="" />
           </div>
         </div>
         <div className="SliderComparator-infoPoints">
@@ -34,8 +42,8 @@ class SliderComparator extends Component {
             title="Автоматичесая система открытия/закрытия"
             position={{ top: 22, left: 30 }}
           >
-            "Можете управлять всей солнцезащитной системой со своего смартфона
-            или с пульта"
+            Можете управлять всей солнцезащитной системой со своего смартфона
+            или с пульта
           </InfoPoint>
           <InfoPoint
             title="Автоматичесая система открытия/закрытия"
