@@ -1,31 +1,30 @@
 import React, { Component } from "react";
 
 import InfoPoint from "../info-point/info-point.jsx";
-import SliderComparator from "./slider-comparator.jsx";
+import ImageComparison from "./image-comparison.jsx";
 
-const imageBefore =
+const before =
   "https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg";
-const imageAfter =
-  "https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg";
+const after = "https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg";
 
-class SliderComparatorContainer extends Component {
+class ImageComparisonContainer extends Component {
   state = {
-    separatorPosition: 55,
+    separatorLeft: 55,
     scrollState: false
   };
 
   sliderElement = null;
 
   render() {
-    const { separatorPosition, scrollState } = this.state;
+    const { separatorLeft, scrollState } = this.state;
     return (
-      <SliderComparator
-        imageBefore={imageBefore}
-        imageAfter={imageAfter}
+      <ImageComparison
+        before={before}
+        after={after}
         scrollState={scrollState}
-        separatorPosition={separatorPosition}
+        separatorPosition={{ left: separatorLeft }}
         setScrollPositionByClicking={true}
-        sliderRef={this.setSliderRef}
+        Ref={this.setSliderRef}
         onScrollStateChange={this.handleScrollStateChange}
         onSliderClick={this.handleSliderClick}
         onChangeSeparatorPosition={this.handleChangeSeparatorPosition}
@@ -33,6 +32,7 @@ class SliderComparatorContainer extends Component {
         <InfoPoint
           title="Автоматическая система открытия/закрытия"
           position={{ top: 22, left: 30 }}
+          place="before"
         >
           Можете управлять всей солнцезащитной системой со своего смартфона или
           с пульта
@@ -40,11 +40,20 @@ class SliderComparatorContainer extends Component {
         <InfoPoint
           title="Автоматическая система открытия/закрытия"
           position={{ top: 72, left: 70 }}
+          place="after"
         >
           "Можете управлять всей солнцезащитной системой со своего смартфона или
           с пульта"
         </InfoPoint>
-      </SliderComparator>
+        <InfoPoint
+          title="Автоматическая система открытия/закрытия"
+          position={{ top: 85, left: 15 }}
+          place="both"
+        >
+          "Можете управлять всей солнцезащитной системой со своего смартфона или
+          с пульта"
+        </InfoPoint>
+      </ImageComparison>
     );
   }
   getSeparatorPosition = e => {
@@ -63,9 +72,9 @@ class SliderComparatorContainer extends Component {
     return persentSeparatorPosition;
   };
 
-  setSeparatorPosition(separatorPosition) {
+  setSeparatorPosition(separatorLeft) {
     this.setState({
-      separatorPosition
+      separatorLeft
     });
   }
 
@@ -102,4 +111,4 @@ class SliderComparatorContainer extends Component {
   };
 }
 
-export default SliderComparatorContainer;
+export default ImageComparisonContainer;

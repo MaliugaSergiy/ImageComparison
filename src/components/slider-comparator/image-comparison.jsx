@@ -2,48 +2,48 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
 
-import "./slider-comparator.css";
+import "./image-comparison.css";
 
-class SliderComparator extends Component {
+class ImageComparison extends Component {
   static propTypes = {};
 
   render() {
     const {
-      imageBefore,
-      imageAfter,
+      before,
+      after,
       scrollState,
       separatorPosition,
-      sliderRef,
+      Ref,
       children
     } = this.props;
     return (
       <div
-        className={cn("SliderComparator", {
-          "SliderComparator--scrolling": scrollState
+        className={cn("ImageComparison", {
+          "ImageComparison--scrolling": scrollState
         })}
         onMouseMove={this.handleSliderMouseMove}
         onClick={this.handleSliderClick}
-        ref={sliderRef}
+        ref={Ref}
       >
-        <div className="SliderComparator-images">
-          <div className="SliderComparator-beforeImageHolder">
-            <img className="SliderComparator-image" src={imageBefore} alt="" />
+        <div className="ImageComparison-images">
+          <div className="ImageComparison-beforeImageHolder">
+            <img className="ImageComparison-image" src={before} alt="" />
           </div>
           <div
-            className="SliderComparator-afterImageHolder"
-            style={{ width: `${separatorPosition}%` }}
+            className="ImageComparison-afterImageHolder"
+            style={{ width: `${separatorPosition.left}%` }}
           >
-            <img className="SliderComparator-image" src={imageAfter} alt="" />
+            <img className="ImageComparison-image" src={after} alt="" />
           </div>
         </div>
-        <div className="SliderComparator-infoPoints">{children}</div>
+        <div className="ImageComparison-infoPoints">{children}</div>
         <div
-          className="SliderComparator-scroller"
-          style={{ left: `${separatorPosition}%` }}
+          className="ImageComparison-separator"
+          style={{ left: `${separatorPosition.left}%` }}
           onMouseDown={this.handleScrollerMouseDown}
           onMouseUp={this.handleScrollerMouseUp}
         >
-          <div className="SliderComparator-scroller-thumb" />
+          <div className="ImageComparison-separatorThumb" />
         </div>
       </div>
     );
@@ -73,4 +73,4 @@ class SliderComparator extends Component {
   };
 }
 
-export default SliderComparator;
+export default ImageComparison;
