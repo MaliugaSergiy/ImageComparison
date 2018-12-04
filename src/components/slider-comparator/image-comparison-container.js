@@ -24,12 +24,10 @@ class ImageComparisonContainer extends Component {
         separatorPosition={{ left: separatorLeft }}
         Ref={this.setSliderRef}
         onScrollStateChange={this.handleScrollStateChange}
-        onSliderClick={this.handleSliderClick}
-        onChangeSeparatorPosition={this.handleChangeSeparatorPosition}
         onClick={this.handleClick}
-        onMouseDown={this.handleClick}
-        onMouseUp={this.handleClick}
-        onMouseMove={this.handleClick}
+        onMouseDown={this.handleMouseDown}
+        onMouseUp={this.handleMouseUp}
+        onMouseMove={this.handleMouseMove}
         onMouseLeave={this.handleMouseLeave}
       >
         <InfoPoint
@@ -99,15 +97,12 @@ class ImageComparisonContainer extends Component {
     this.changeSeparatorMoveState(state);
   };
 
-  handleChangeSeparatorPosition = e => {
-    const separatorLeftPosition = this.getSeparatorLeftPosition(e);
-
-    if (this.state.separatorMoveState) {
-      this.setSeparatorPosition(separatorLeftPosition);
-    }
+  handleMouseLeave = () => {
+    this.changeSeparatorMoveState(false);
   };
 
-  handleSliderClick = e => {
+  /** */
+  handleClick = e => {
     const separatorLeftPosition = this.getSeparatorLeftPosition(e);
     const { clickableImage } = this.props;
 
@@ -116,6 +111,23 @@ class ImageComparisonContainer extends Component {
     }
 
     this.setSeparatorPosition(separatorLeftPosition);
+  };
+
+  handleMouseMove = e => {
+    const separatorLeftPosition = this.getSeparatorLeftPosition(e);
+
+    if (this.state.separatorMoveState) {
+      this.setSeparatorPosition(separatorLeftPosition);
+    }
+  };
+
+  handleMouseDown = e => {
+    e.preventDefault();
+    this.changeSeparatorMoveState(true);
+  };
+
+  handleMouseUp = () => {
+    this.changeSeparatorMoveState(false);
   };
 }
 

@@ -3,17 +3,35 @@ import PropTypes from "prop-types";
 
 import "./image-comparison.css";
 
+const { string, func, number } = PropTypes;
+
 class ImageComparison extends Component {
-  static propTypes = {};
+  static propTypes = {
+    before: string.isRequired,
+    after: string.isRequired,
+    separatorPosition: number.isRequired,
+    Ref: func.isRequired,
+    onMouseLeave: func.isRequired,
+    onClick: func.isRequired,
+    onMouseMove: func.isRequired,
+    onMouseDown: func.isRequired,
+    onMouseUp: func.isRequired
+  };
+
+  static defaultProps = {};
 
   render() {
     const {
       before,
       after,
-
       separatorPosition,
       Ref,
-      children
+      children,
+      onMouseLeave,
+      onClick,
+      onMouseMove,
+      onMouseDown,
+      onMouseUp
     } = this.props;
 
     const percentLeftPosition = `${separatorPosition.left * 100}%`;
@@ -21,8 +39,9 @@ class ImageComparison extends Component {
     return (
       <div
         className="ImageComparison"
-        onMouseMove={this.handleSliderMouseMove}
-        onClick={this.handleSliderClick}
+        onMouseMove={onMouseMove}
+        onClick={onClick}
+        onMouseLeave={onMouseLeave}
         ref={Ref}
       >
         <div className="ImageComparison-images">
@@ -40,8 +59,8 @@ class ImageComparison extends Component {
         <div
           className="ImageComparison-separator"
           style={{ left: percentLeftPosition }}
-          onMouseDown={this.handleScrollerMouseDown}
-          onMouseUp={this.handleScrollerMouseUp}
+          onMouseDown={onMouseDown}
+          onMouseUp={onMouseUp}
         >
           <div className="ImageComparison-separatorLine">
             <div className="ImageComparison-separatorThumb" />
@@ -50,28 +69,6 @@ class ImageComparison extends Component {
       </div>
     );
   }
-
-  handleScrollerMouseDown = e => {
-    e.preventDefault();
-    const { onScrollStateChange } = this.props;
-    onScrollStateChange(true);
-  };
-
-  handleScrollerMouseUp = () => {
-    const { onScrollStateChange } = this.props;
-    onScrollStateChange(false);
-  };
-
-  handleSliderMouseMove = e => {
-    const { onChangeSeparatorPosition } = this.props;
-    onChangeSeparatorPosition(e);
-  };
-
-  handleSliderClick = e => {
-    const { onSliderClick } = this.props;
-
-    onSliderClick(e);
-  };
 }
 
 export default ImageComparison;
