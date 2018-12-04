@@ -32,7 +32,7 @@ class ImageComparisonContainer extends Component {
       >
         <InfoPoint
           title="Автоматическая система открытия/закрытия"
-          position={{ top: 22, left: 30 }}
+          position={{ top: 22, left: 50 }}
           place="after"
         >
           Можете управлять всей солнцезащитной системой со своего смартфона или

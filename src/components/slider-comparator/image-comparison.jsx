@@ -28,7 +28,7 @@ class ImageComparison extends Component {
       after,
       separatorPosition,
       Ref,
-      children,
+
       onMouseLeave,
       onClick,
       onMouseMove,
@@ -37,8 +37,6 @@ class ImageComparison extends Component {
     } = this.props;
 
     const percentLeftPosition = `${separatorPosition.left * 100}%`;
-
-    console.log(children);
 
     return (
       <div
@@ -59,9 +57,14 @@ class ImageComparison extends Component {
             className="ImageComparison-afterImageHolder"
             style={{ width: percentLeftPosition }}
           >
-            <img className="ImageComparison-image" src={after} alt="" />
-            <div className="ImageComparison-infoPoints">
-              {this.renderInfoPoints("after")}
+            <div className="ImageComparison-imagePositioner">
+              <img className="ImageComparison-image" src={after} alt="" />
+              <div
+                className="ImageComparison-infoPoints"
+                // style={{ left: `px` }}
+              >
+                {this.renderInfoPoints("after")}
+              </div>
             </div>
           </div>
         </div>
@@ -81,6 +84,22 @@ class ImageComparison extends Component {
       </div>
     );
   }
+
+  setBeforeRef = element => {
+    if (!element) {
+      return;
+    }
+
+    this.beforeElement = element;
+  };
+
+  setAfterRef = element => {
+    if (!element) {
+      return;
+    }
+
+    this.beforeElement = element;
+  };
 
   renderInfoPoints(place) {
     const { children } = this.props;
