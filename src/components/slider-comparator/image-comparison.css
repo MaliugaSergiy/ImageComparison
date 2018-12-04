@@ -32,11 +32,11 @@
 .ImageComparison-image {
   width: auto;
   height: 100%;
-  -moz-user-select: none;
+  /* -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-  user-select: none;
+  user-select: none; */
 }
 
 .ImageComparison-infoPoints {
@@ -54,13 +54,13 @@
   transform: translate(-50%, -50%);
 }
 
-.ImageComparison--scrolling .ImageComparison-infoPoints {
+/* .ImageComparison--scrolling .ImageComparison-infoPoints {
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
+} */
 
 .ImageComparison-separator {
   position: absolute;

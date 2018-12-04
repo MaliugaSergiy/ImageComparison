@@ -16,14 +16,12 @@ class ImageComparisonContainer extends Component {
   sliderElement = null;
 
   render() {
-    const { separatorLeft, separatorMoveState } = this.state;
+    const { separatorLeft } = this.state;
     return (
       <ImageComparison
         before={before}
         after={after}
-        scrollState={separatorMoveState}
         separatorPosition={{ left: separatorLeft }}
-        setScrollPositionByClicking={true}
         Ref={this.setSliderRef}
         onScrollStateChange={this.handleScrollStateChange}
         onSliderClick={this.handleSliderClick}
@@ -83,7 +81,7 @@ class ImageComparisonContainer extends Component {
     });
   }
 
-  changeScrollState(separatorMoveState) {
+  changeSeparatorMoveState(separatorMoveState) {
     this.setState({
       separatorMoveState
     });
@@ -98,7 +96,7 @@ class ImageComparisonContainer extends Component {
   };
 
   handleScrollStateChange = state => {
-    this.changeScrollState(state);
+    this.changeSeparatorMoveState(state);
   };
 
   handleChangeSeparatorPosition = e => {
@@ -111,6 +109,11 @@ class ImageComparisonContainer extends Component {
 
   handleSliderClick = e => {
     const separatorLeftPosition = this.getSeparatorLeftPosition(e);
+    const { clickableImage } = this.props;
+
+    if (!clickableImage) {
+      return;
+    }
 
     this.setSeparatorPosition(separatorLeftPosition);
   };

@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <div className="App">
         <Container>
-          <SliderComparatorContainer />
+          <SliderComparatorContainer clickableImage={true} />
         </Container>
       </div>
     );

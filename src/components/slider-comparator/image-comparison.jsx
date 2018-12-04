@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import cn from "classnames";
 
 import "./image-comparison.css";
 
@@ -11,7 +10,7 @@ class ImageComparison extends Component {
     const {
       before,
       after,
-      scrollState,
+
       separatorPosition,
       Ref,
       children
@@ -21,9 +20,7 @@ class ImageComparison extends Component {
 
     return (
       <div
-        className={cn("ImageComparison", {
-          "ImageComparison--scrolling": scrollState
-        })}
+        className="ImageComparison"
         onMouseMove={this.handleSliderMouseMove}
         onClick={this.handleSliderClick}
         ref={Ref}
@@ -54,7 +51,8 @@ class ImageComparison extends Component {
     );
   }
 
-  handleScrollerMouseDown = () => {
+  handleScrollerMouseDown = e => {
+    e.preventDefault();
     const { onScrollStateChange } = this.props;
     onScrollStateChange(true);
   };
@@ -70,11 +68,9 @@ class ImageComparison extends Component {
   };
 
   handleSliderClick = e => {
-    const { onSliderClick, setScrollPositionByClicking } = this.props;
+    const { onSliderClick } = this.props;
 
-    if (setScrollPositionByClicking) {
-      onSliderClick(e);
-    }
+    onSliderClick(e);
   };
 }
 
