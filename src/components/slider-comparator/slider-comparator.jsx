@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
 
-import InfoPoint from "../info-point/info-point.jsx";
-
 import "./slider-comparator.css";
 
 class SliderComparator extends Component {
@@ -15,7 +13,8 @@ class SliderComparator extends Component {
       imageAfter,
       scrollState,
       separatorPosition,
-      sliderRef
+      sliderRef,
+      children
     } = this.props;
     return (
       <div
@@ -37,22 +36,7 @@ class SliderComparator extends Component {
             <img className="SliderComparator-image" src={imageAfter} alt="" />
           </div>
         </div>
-        <div className="SliderComparator-infoPoints">
-          <InfoPoint
-            title="Автоматичесая система открытия/закрытия"
-            position={{ top: 22, left: 30 }}
-          >
-            Можете управлять всей солнцезащитной системой со своего смартфона
-            или с пульта
-          </InfoPoint>
-          <InfoPoint
-            title="Автоматичесая система открытия/закрытия"
-            position={{ top: 72, left: 70 }}
-          >
-            "Можете управлять всей солнцезащитной системой со своего смартфона
-            или с пульта"
-          </InfoPoint>
-        </div>
+        <div className="SliderComparator-infoPoints">{children}</div>
         <div
           className="SliderComparator-scroller"
           style={{ left: `${separatorPosition}%` }}

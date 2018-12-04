@@ -3,12 +3,6 @@ import React, { Component } from "react";
 import InfoPoint from "../info-point/info-point.jsx";
 import SliderComparator from "./slider-comparator.jsx";
 
-const images = [
-  "https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg",
-
-  "https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg"
-];
-
 const imageBefore =
   "https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg";
 const imageAfter =
@@ -26,7 +20,6 @@ class SliderComparatorContainer extends Component {
     const { separatorPosition, scrollState } = this.state;
     return (
       <SliderComparator
-        images={images}
         imageBefore={imageBefore}
         imageAfter={imageAfter}
         scrollState={scrollState}
@@ -36,7 +29,22 @@ class SliderComparatorContainer extends Component {
         onScrollStateChange={this.handleScrollStateChange}
         onSliderClick={this.handleSliderClick}
         onChangeSeparatorPosition={this.handleChangeSeparatorPosition}
-      />
+      >
+        <InfoPoint
+          title="Автоматическая система открытия/закрытия"
+          position={{ top: 22, left: 30 }}
+        >
+          Можете управлять всей солнцезащитной системой со своего смартфона или
+          с пульта
+        </InfoPoint>
+        <InfoPoint
+          title="Автоматическая система открытия/закрытия"
+          position={{ top: 72, left: 70 }}
+        >
+          "Можете управлять всей солнцезащитной системой со своего смартфона или
+          с пульта"
+        </InfoPoint>
+      </SliderComparator>
     );
   }
   getSeparatorPosition = e => {
