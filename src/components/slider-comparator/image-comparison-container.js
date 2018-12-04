@@ -32,6 +32,7 @@ class ImageComparisonContainer extends Component {
         onMouseDown={this.handleClick}
         onMouseUp={this.handleClick}
         onMouseMove={this.handleClick}
+        onMouseLeave={this.handleMouseLeave}
       >
         <InfoPoint
           title="Автоматическая система открытия/закрытия"
@@ -60,20 +61,20 @@ class ImageComparisonContainer extends Component {
       </ImageComparison>
     );
   }
-  getSeparatorPosition = e => {
+  getSeparatorLeftPosition = e => {
     const { width, left } = this.sliderElement.getBoundingClientRect();
 
     const separatorPosition = e.clientX - left;
-    const persentSeparatorPosition = separatorPosition / width;
+    const percentSeparatorPosition = separatorPosition / width;
 
-    if (persentSeparatorPosition > 1) {
+    if (percentSeparatorPosition > 1) {
       return 1;
     }
-    if (persentSeparatorPosition < 0) {
+    if (percentSeparatorPosition < 0) {
       return 0;
     }
 
-    return persentSeparatorPosition;
+    return percentSeparatorPosition;
   };
 
   setSeparatorPosition(separatorLeft) {
@@ -101,7 +102,7 @@ class ImageComparisonContainer extends Component {
   };
 
   handleChangeSeparatorPosition = e => {
-    const separatorPosition = this.getSeparatorPosition(e);
+    const separatorPosition = this.getSeparatorLeftPosition(e);
 
     if (this.state.scrollState) {
       this.setSeparatorPosition(separatorPosition);
@@ -109,7 +110,7 @@ class ImageComparisonContainer extends Component {
   };
 
   handleSliderClick = e => {
-    const separatorPosition = this.getSeparatorPosition(e);
+    const separatorPosition = this.getSeparatorLeftPosition(e);
 
     this.setSeparatorPosition(separatorPosition);
   };
