@@ -1,0 +1,28 @@
+.InfoPoint {
+  position: relative;
+  cursor: pointer;
+}
+
+.InfoPoint-pointer {
+}
+
+.InfoPoint-text {
+  position: absolute;
+  color: #fff;
+  left: 16px;
+  top: -8px;
+}
+
+.InfoPoint-title {
+  font-size: 18px;
+}
+
+.InfoPoint-description {
+  font-size: 14px;
+  opacity: 0;
+  transition: 0.2s opacity ease-out;
+}
+
+.InfoPoint:hover .InfoPoint-description {
+  opacity: 1;
+}
