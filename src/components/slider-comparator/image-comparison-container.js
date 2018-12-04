@@ -10,18 +10,18 @@ const after = "https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg";
 class ImageComparisonContainer extends Component {
   state = {
     separatorLeft: 0.55,
-    scrollState: false
+    separatorMoveState: false
   };
 
   sliderElement = null;
 
   render() {
-    const { separatorLeft, scrollState } = this.state;
+    const { separatorLeft, separatorMoveState } = this.state;
     return (
       <ImageComparison
         before={before}
         after={after}
-        scrollState={scrollState}
+        scrollState={separatorMoveState}
         separatorPosition={{ left: separatorLeft }}
         setScrollPositionByClicking={true}
         Ref={this.setSliderRef}
@@ -83,9 +83,9 @@ class ImageComparisonContainer extends Component {
     });
   }
 
-  changeScrollState(scrollState) {
+  changeScrollState(separatorMoveState) {
     this.setState({
-      scrollState
+      separatorMoveState
     });
   }
 
@@ -102,17 +102,17 @@ class ImageComparisonContainer extends Component {
   };
 
   handleChangeSeparatorPosition = e => {
-    const separatorPosition = this.getSeparatorLeftPosition(e);
+    const separatorLeftPosition = this.getSeparatorLeftPosition(e);
 
-    if (this.state.scrollState) {
-      this.setSeparatorPosition(separatorPosition);
+    if (this.state.separatorMoveState) {
+      this.setSeparatorPosition(separatorLeftPosition);
     }
   };
 
   handleSliderClick = e => {
-    const separatorPosition = this.getSeparatorLeftPosition(e);
+    const separatorLeftPosition = this.getSeparatorLeftPosition(e);
 
-    this.setSeparatorPosition(separatorPosition);
+    this.setSeparatorPosition(separatorLeftPosition);
   };
 }
 
