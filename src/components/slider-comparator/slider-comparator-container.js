@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import InfoPoint from "../info-point/info-point.jsx";
 import SliderComparator from "./slider-comparator.jsx";
 
 const images = [
@@ -8,39 +9,9 @@ const images = [
   "https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg"
 ];
 
-const infoPoints = [
-  {
-    title: "Автоматичесая система открытия/закрытия",
-    description:
-      "Можете управлять всей солнцезащитной системой со своего смартфона или с пульта",
-    position: {
-      top: 22,
-      left: 30
-    }
-  },
-  {
-    title: "Автоматичесая система открытия/закрытия",
-    description:
-      "Можете управлять всей солнцезащитной системой со своего смартфона или с пульта",
-    position: {
-      top: 70,
-      left: 56
-    }
-  },
-  {
-    title: "Автоматичесая система открытия/закрытия",
-    description:
-      "Можете управлять всей солнцезащитной системой со своего смартфона или с пульта",
-    position: {
-      top: 12,
-      left: 80
-    }
-  }
-];
-
-class SliderCompatarorContainer extends Component {
+class SliderComparatorContainer extends Component {
   state = {
-    separatorPosition: 70,
+    separatorPosition: 55,
     scrollState: false
   };
 
@@ -51,7 +22,6 @@ class SliderCompatarorContainer extends Component {
         images={images}
         scrollState={scrollState}
         separatorPosition={separatorPosition}
-        infoPoints={infoPoints}
         setScrollPositionByClicking={true}
         onScrollStateChange={this.handleScrollStateChange}
         onSliderClick={this.handleSliderClick}
@@ -98,4 +68,4 @@ class SliderCompatarorContainer extends Component {
   };
 }
 
-export default SliderCompatarorContainer;
+export default SliderComparatorContainer;

@@ -9,14 +9,13 @@ import "./slider-comparator.css";
 class SliderComparator extends Component {
   static propTypes = {};
   render() {
-    const { images, infoPoints, scrollState, separatorPosition } = this.props;
+    const { images, scrollState, separatorPosition } = this.props;
     return (
       <div
         className={cn("SliderComparator", {
           "SliderComparator--scrolling": scrollState
         })}
         onMouseMove={this.handleSliderMouseMove}
-        onMo
         onClick={this.handleSliderClick}
       >
         <div className="SliderComparator-images">
@@ -31,26 +30,24 @@ class SliderComparator extends Component {
           </div>
         </div>
         <div className="SliderComparator-infoPoints">
-          {infoPoints.map((infoPoint, index) => (
-            <div
-              key={index}
-              className="SliderComparator-infoPoint"
-              style={{
-                top: `${infoPoint.position.top}%`,
-                left: `${infoPoint.position.left}%`
-              }}
-            >
-              <InfoPoint
-                title={infoPoint.title}
-                description={infoPoint.description}
-              />
-            </div>
-          ))}
+          <InfoPoint
+            title="Автоматичесая система открытия/закрытия"
+            position={{ top: 22, left: 30 }}
+          >
+            "Можете управлять всей солнцезащитной системой со своего смартфона
+            или с пульта"
+          </InfoPoint>
+          <InfoPoint
+            title="Автоматичесая система открытия/закрытия"
+            position={{ top: 72, left: 70 }}
+          >
+            "Можете управлять всей солнцезащитной системой со своего смартфона
+            или с пульта"
+          </InfoPoint>
         </div>
         <div
           className="SliderComparator-scroller"
           style={{ left: `${separatorPosition}%` }}
-          onClick={() => console.log("clicked")}
           onMouseDown={this.handleScrollerMouseDown}
           onMouseUp={this.handleScrollerMouseUp}
         >

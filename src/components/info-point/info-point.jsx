@@ -8,15 +8,21 @@ import "./info-point.css";
 class InfoPoint extends Component {
   static propTypes = {};
   render() {
-    const { title, description } = this.props;
+    const { title, position, children } = this.props;
+
+    const percentPosition = {
+      top: `${position.top}%`,
+      left: `${position.left}%`
+    };
+
     return (
-      <div className="InfoPoint">
+      <div className="InfoPoint" style={percentPosition}>
         <div className="InfoPoint-pointer">
           <Pointer />
         </div>
         <div className="InfoPoint-text">
           <div className="InfoPoint-title">{title}</div>
-          <div className="InfoPoint-description">{description}</div>
+          <div className="InfoPoint-description">{children}</div>
         </div>
       </div>
     );
