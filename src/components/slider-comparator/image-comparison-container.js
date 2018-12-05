@@ -6,6 +6,8 @@ import ImageComparison from "./image-comparison.jsx";
 
 const { string, oneOf, number, shape, arrayOf, bool } = PropTypes;
 
+const INCREASE_AMOUNT = 0.02;
+
 class ImageComparisonContainer extends Component {
   state = {
     separatorLeft: this.props.initialSeparatorLeftPosition,
@@ -17,6 +19,7 @@ class ImageComparisonContainer extends Component {
     before: string.isRequired,
     after: string.isRequired,
     clickableImage: bool,
+    increaseByHover: bool,
     initialSeparatorLeftPosition: number,
     infoPoints: arrayOf(
       shape({
@@ -31,10 +34,12 @@ class ImageComparisonContainer extends Component {
   };
   static defaultProps = {
     initialSeparatorLeftPosition: 0.5,
-    clickableImage: false
+    clickableImage: false,
+    increaseByHover: false
   };
 
   imageComparisonElement = null;
+  separatorElement = null;
 
   render() {
     const { before, after, infoPoints } = this.props;
@@ -44,6 +49,7 @@ class ImageComparisonContainer extends Component {
         after={after}
         separatorPosition={this.getSeparatorLeftProperty()}
         Ref={this.setImageComparisonRef}
+        separatorRef={this.setSeparatorElementRef}
         onScrollStateChange={this.handleScrollStateChange}
         onImageComparisonMouseDown={this.handleImageComparisonMouseDown}
         onSeparatorMouseDown={this.handleSeparatorMouseDown}
@@ -95,7 +101,49 @@ class ImageComparisonContainer extends Component {
     return percentSeparatorPosition;
   };
 
-  increaseImage() {}
+  getTempSeparatorLeft(tempSeparatorLeft) {
+    if (tempSeparatorLeft > 1) {
+      return 1;
+    }
+    if (tempSeparatorLeft < 0) {
+      return 0;
+    }
+
+    return tempSeparatorLeft;
+  }
+
+  setTempSeparatorLeft(tempSeparatorLeft) {
+    this.setState({
+      tempSeparatorLeft
+    });
+  }
+
+  increaseImage(e) {
+    const { left, right } = this.separatorElement.getBoundingClientRect();
+    const { separatorLeft } = this.state;
+
+    const { clientX } = e;
+
+    console.log({ left, right, clientX });
+
+    if (clientX < left - 16) {
+      const tempSeparatorLeft = this.getTempSeparatorLeft(
+        separatorLeft + INCREASE_AMOUNT
+      );
+      this.setTempSeparatorLeft(tempSeparatorLeft);
+      return;
+    }
+
+    if (clientX > right + 16) {
+      const tempSeparatorLeft = this.getTempSeparatorLeft(
+        separatorLeft - INCREASE_AMOUNT
+      );
+      this.setTempSeparatorLeft(tempSeparatorLeft);
+      return;
+    }
+
+    this.setTempSeparatorLeft(null);
+  }
 
   setSeparatorPosition(separatorLeft) {
     this.setState({
@@ -117,12 +165,21 @@ class ImageComparisonContainer extends Component {
     this.imageComparisonElement = element;
   };
 
+  setSeparatorElementRef = element => {
+    if (!element) {
+      return;
+    }
+
+    this.separatorElement = element;
+  };
+
   handleScrollStateChange = state => {
     this.changeSeparatorMoveState(state);
   };
 
   handleMouseLeave = () => {
     this.changeSeparatorMoveState(false);
+    this.setTempSeparatorLeft(null);
   };
 
   handleTouchCancel = () => {
@@ -147,7 +204,7 @@ class ImageComparisonContainer extends Component {
     if (this.state.separatorMoveState) {
       this.setSeparatorPosition(separatorLeftPosition);
     }
-    this.increaseImage();
+    this.increaseImage(e);
   };
 
   handleTouchMove = e => {
@@ -175,21 +232,21 @@ class ImageComparisonContainer extends Component {
     this.changeSeparatorMoveState(false);
   };
 
-  handleMouseEnterBefore = () => {
-    console.log("​handleMouseEnterBefore");
-  };
+  // handleMouseEnterBefore = () => {
+  //   console.log("​handleMouseEnterBefore");
+  // };
 
-  handleMouseEnterAfter = () => {
-    console.log("handleMouseEnterAfter");
-  };
+  // handleMouseEnterAfter = () => {
+  //   console.log("handleMouseEnterAfter");
+  // };
 
-  handleMouseLeaveBefore = () => {
-    console.log("handleMouseLeaveBefore");
-  };
+  // handleMouseLeaveBefore = () => {
+  //   console.log("handleMouseLeaveBefore");
+  // };
 
-  handleMouseLeaveAfter = () => {
-    console.log("handleMouseLeaveAfter");
-  };
+  // handleMouseLeaveAfter = () => {
+  //   console.log("handleMouseLeaveAfter");
+  // };
 }
 
 export default ImageComparisonContainer;

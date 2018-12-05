@@ -41,6 +41,7 @@ class App extends Component {
             after="https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg"
             infoPoints={infoPoints}
             initialSeparatorLeftPosition={0.57}
+            increaseByHover={true}
           />
         </Container>
       </div>

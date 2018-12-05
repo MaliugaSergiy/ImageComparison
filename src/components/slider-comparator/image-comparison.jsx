@@ -18,10 +18,11 @@ class ImageComparison extends Component {
       left: number
     }).isRequired,
     Ref: func.isRequired,
+    separatorRef: func.isRequired,
     onMouseLeave: func.isRequired,
-    handleImageComparisonMouseDown: func.isRequired,
+    onImageComparisonMouseDown: func.isRequired,
+    onSeparatorMouseDown: func.isRequired,
     onMouseMove: func.isRequired,
-    onMouseDown: func.isRequired,
     onMouseUp: func.isRequired,
     onTouchStart: func.isRequired,
     onTouchEnd: func.isRequired,
@@ -37,6 +38,7 @@ class ImageComparison extends Component {
       after,
       separatorPosition,
       Ref,
+      separatorRef,
       onMouseLeave,
       onImageComparisonMouseDown,
       onMouseMove,
@@ -102,8 +104,9 @@ class ImageComparison extends Component {
           onMouseUp={onMouseUp}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
+          ref={separatorRef}
         >
-          <div className="ImageComparison-separatorLine">
+          <div className="ImageComparison-separatorLine" ref={separatorRef}>
             <div className="ImageComparison-separatorThumb" />
           </div>
         </div>
