@@ -28,12 +28,15 @@ class ImageComparison extends Component {
       after,
       separatorPosition,
       Ref,
-
       onMouseLeave,
       onClick,
       onMouseMove,
       onMouseDown,
-      onMouseUp
+      onMouseUp,
+      onTouchStart,
+      onTouchEnd,
+      onTouchMove,
+      onTouchCancel
     } = this.props;
 
     const percentLeftPosition = `${separatorPosition.left * 100}%`;
@@ -41,9 +44,11 @@ class ImageComparison extends Component {
     return (
       <div
         className="ImageComparison"
-        onMouseMove={onMouseMove}
         onClick={onClick}
+        onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
+        onTouchMove={onTouchMove}
+        onTouchCancel={onTouchCancel}
         ref={Ref}
       >
         <div className="ImageComparison-images">
@@ -76,6 +81,8 @@ class ImageComparison extends Component {
           style={{ left: percentLeftPosition }}
           onMouseDown={onMouseDown}
           onMouseUp={onMouseUp}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
         >
           <div className="ImageComparison-separatorLine">
             <div className="ImageComparison-separatorThumb" />

@@ -29,6 +29,10 @@ class ImageComparisonContainer extends Component {
         onMouseUp={this.handleMouseUp}
         onMouseMove={this.handleMouseMove}
         onMouseLeave={this.handleMouseLeave}
+        onTouchMove={this.handleTouchMove}
+        onTouchCancel={this.handleTouchCancel}
+        onTouchStart={this.handleTouchStart}
+        onTouchEnd={this.handleTouchEnd}
       >
         <InfoPoint
           title="Автоматическая система открытия/закрытия"
@@ -60,7 +64,9 @@ class ImageComparisonContainer extends Component {
   getSeparatorLeftPosition = e => {
     const { width, left } = this.sliderElement.getBoundingClientRect();
 
-    const separatorPosition = e.clientX - left;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+
+    const separatorPosition = clientX - left;
     const percentSeparatorPosition = separatorPosition / width;
 
     if (percentSeparatorPosition > 1) {
@@ -101,6 +107,10 @@ class ImageComparisonContainer extends Component {
     this.changeSeparatorMoveState(false);
   };
 
+  handleTouchCancel = () => {
+    this.changeSeparatorMoveState(false);
+  };
+
   /** */
   handleClick = e => {
     const separatorLeftPosition = this.getSeparatorLeftPosition(e);
@@ -121,12 +131,28 @@ class ImageComparisonContainer extends Component {
     }
   };
 
+  handleTouchMove = e => {
+    const separatorLeftPosition = this.getSeparatorLeftPosition(e);
+
+    if (this.state.separatorMoveState) {
+      this.setSeparatorPosition(separatorLeftPosition);
+    }
+  };
+
   handleMouseDown = e => {
     e.preventDefault();
     this.changeSeparatorMoveState(true);
   };
 
   handleMouseUp = () => {
+    this.changeSeparatorMoveState(false);
+  };
+
+  handleTouchStart = () => {
+    this.changeSeparatorMoveState(true);
+  };
+
+  handleTouchEnd = () => {
     this.changeSeparatorMoveState(false);
   };
 }
