@@ -9,7 +9,12 @@ const { string, oneOf, number, shape, arrayOf } = PropTypes;
 class ImageComparisonContainer extends Component {
   state = {
     separatorLeft: 0.55,
-    separatorMoveState: false,
+    separatorMoveState: false
+  };
+
+  static propTypes = {
+    before: string.isRequired,
+    after: string.isRequired,
     infoPoints: arrayOf(
       shape({
         title: string,
@@ -20,11 +25,6 @@ class ImageComparisonContainer extends Component {
         place: oneOf(["before", "after", "both"])
       })
     )
-  };
-
-  static propTypes = {
-    before: string.isRequired,
-    after: string.isRequired
   };
 
   sliderElement = null;
