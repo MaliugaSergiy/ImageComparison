@@ -19,7 +19,7 @@ class ImageComparison extends Component {
     }).isRequired,
     Ref: func.isRequired,
     onMouseLeave: func.isRequired,
-    onClick: func.isRequired,
+    handleImageComparisonMouseDown: func.isRequired,
     onMouseMove: func.isRequired,
     onMouseDown: func.isRequired,
     onMouseUp: func.isRequired,
@@ -38,18 +38,14 @@ class ImageComparison extends Component {
       separatorPosition,
       Ref,
       onMouseLeave,
-      onClick,
+      onImageComparisonMouseDown,
       onMouseMove,
-      onMouseDown,
+      onSeparatorMouseDown,
       onMouseUp,
       onTouchStart,
       onTouchEnd,
       onTouchMove,
       onTouchCancel
-      // onMouseEnterBefore,
-      // onMouseEnterAfter,
-      // onMouseLeaveBefore,
-      // onMouseLeaveAfter
     } = this.props;
 
     const percentLeftPosition = `${separatorPosition.left * 100}%`;
@@ -58,37 +54,18 @@ class ImageComparison extends Component {
     return (
       <div
         className="ImageComparison"
-        onClick={onClick}
+        onMouseDown={onImageComparisonMouseDown}
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
         onTouchMove={onTouchMove}
         onTouchCancel={onTouchCancel}
         ref={Ref}
       >
-        <div
-          className="ImageComparison-images"
-          onMouseEnter={() => console.log("dsdsd")}
-          onMouseLeave={() => console.log("dsdsd")}
-          onMouseOver={() => console.log("dsdsd")}
-          onMouseOut={() => console.log("dsdsd")}
-          onClick={() => console.log("dsdsd")}
-          onContextMenu={() => console.log("dsdsd")}
-        >
+        <div className="ImageComparison-images">
           <div className="ImageComparison-beforeImageHolder">
-            <img
-              className="ImageComparison-image"
-              src={before}
-              alt=""
-              onMouseEnter={() => console.log("dsdsd")}
-              onMouseLeave={() => console.log("dsdsd")}
-              onMouseOver={() => console.log("dsdsd")}
-              onMouseOut={() => console.log("dsdsd")}
-              onClick={() => console.log("dsdsd")}
-              onContextMenu={() => console.log("dsdsd")}
-            />
-            <div className="ImageComparison-infoPoints">
-              {this.renderInfoPoints(PLACES.BEFORE)}
-            </div>
+            <img className="ImageComparison-image" src={before} alt="" />
+
+            {this.renderInfoPoints(PLACES.BEFORE)}
           </div>
           <div
             className="ImageComparison-afterImageHolder"
@@ -101,27 +78,27 @@ class ImageComparison extends Component {
               style={{
                 transform: `translateX(${imageTransform})`
               }}
-              onMouseEnter={() => console.log("dsdsd")}
-              onMouseLeave={() => console.log("dsdsd")}
-              onMouseOver={() => console.log("dsdsd")}
-              onMouseOut={() => console.log("dsdsd")}
-              onClick={() => console.log("dsdsd")}
-              onContextMenu={() => console.log("dsdsd")}
             >
-              <img className="ImageComparison-image" src={after} alt="" />
-              <div className="ImageComparison-infoPoints">
-                {this.renderInfoPoints(PLACES.AFTER)}
-              </div>
+              <img
+                className="ImageComparison-image"
+                src={after}
+                alt=""
+                onContextMenu={() =>
+                  console.log("onContextMenu-imagePositioner")
+                }
+              />
+
+              {this.renderInfoPoints(PLACES.AFTER)}
             </div>
           </div>
         </div>
-        <div className="ImageComparison-infoPoints">
-          {this.renderInfoPoints(PLACES.BOTH)}
-        </div>
+
+        {this.renderInfoPoints(PLACES.BOTH)}
+
         <div
           className="ImageComparison-separator"
           style={{ left: percentLeftPosition }}
-          onMouseDown={onMouseDown}
+          onMouseDown={onSeparatorMouseDown}
           onMouseUp={onMouseUp}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}

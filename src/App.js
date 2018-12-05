@@ -40,7 +40,7 @@ class App extends Component {
             before="https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg"
             after="https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg"
             infoPoints={infoPoints}
-            initialSeparatorLeftPosition={0.3}
+            initialSeparatorLeftPosition={0.57}
           />
         </Container>
       </div>

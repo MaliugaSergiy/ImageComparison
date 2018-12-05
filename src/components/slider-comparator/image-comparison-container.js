@@ -9,6 +9,7 @@ const { string, oneOf, number, shape, arrayOf, bool } = PropTypes;
 class ImageComparisonContainer extends Component {
   state = {
     separatorLeft: this.props.initialSeparatorLeftPosition,
+    tempSeparatorLeft: null,
     separatorMoveState: false
   };
 
@@ -33,20 +34,19 @@ class ImageComparisonContainer extends Component {
     clickableImage: false
   };
 
-  sliderElement = null;
+  imageComparisonElement = null;
 
   render() {
-    const { separatorLeft } = this.state;
     const { before, after, infoPoints } = this.props;
     return (
       <ImageComparison
         before={before}
         after={after}
-        separatorPosition={{ left: separatorLeft }}
-        Ref={this.setSliderRef}
+        separatorPosition={this.getSeparatorLeftProperty()}
+        Ref={this.setImageComparisonRef}
         onScrollStateChange={this.handleScrollStateChange}
-        onClick={this.handleClick}
-        onMouseDown={this.handleMouseDown}
+        onImageComparisonMouseDown={this.handleImageComparisonMouseDown}
+        onSeparatorMouseDown={this.handleSeparatorMouseDown}
         onMouseUp={this.handleMouseUp}
         onMouseMove={this.handleMouseMove}
         onMouseLeave={this.handleMouseLeave}
@@ -54,10 +54,6 @@ class ImageComparisonContainer extends Component {
         onTouchCancel={this.handleTouchCancel}
         onTouchStart={this.handleTouchStart}
         onTouchEnd={this.handleTouchEnd}
-        onMouseEnterBefore={this.handleMouseEnterBefore}
-        onMouseEnterAfter={this.handleMouseEnterAfter}
-        onMouseLeaveBefore={this.handleMouseLeaveBefore}
-        onMouseLeaveAfter={this.handleMouseLeaveAfter}
       >
         {infoPoints.map((infoPoint, index) => (
           <InfoPoint
@@ -72,8 +68,17 @@ class ImageComparisonContainer extends Component {
       </ImageComparison>
     );
   }
+
+  getSeparatorLeftProperty() {
+    const { tempSeparatorLeft, separatorLeft } = this.state;
+
+    return {
+      left: tempSeparatorLeft || separatorLeft
+    };
+  }
+
   getSeparatorLeftPosition = e => {
-    const { width, left } = this.sliderElement.getBoundingClientRect();
+    const { width, left } = this.imageComparisonElement.getBoundingClientRect();
 
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
 
@@ -90,6 +95,8 @@ class ImageComparisonContainer extends Component {
     return percentSeparatorPosition;
   };
 
+  increaseImage() {}
+
   setSeparatorPosition(separatorLeft) {
     this.setState({
       separatorLeft
@@ -102,12 +109,12 @@ class ImageComparisonContainer extends Component {
     });
   }
 
-  setSliderRef = element => {
+  setImageComparisonRef = element => {
     if (!element) {
       return;
     }
 
-    this.sliderElement = element;
+    this.imageComparisonElement = element;
   };
 
   handleScrollStateChange = state => {
@@ -123,7 +130,7 @@ class ImageComparisonContainer extends Component {
   };
 
   /** */
-  handleClick = e => {
+  handleImageComparisonMouseDown = e => {
     const separatorLeftPosition = this.getSeparatorLeftPosition(e);
     const { clickableImage } = this.props;
 
@@ -140,6 +147,7 @@ class ImageComparisonContainer extends Component {
     if (this.state.separatorMoveState) {
       this.setSeparatorPosition(separatorLeftPosition);
     }
+    this.increaseImage();
   };
 
   handleTouchMove = e => {
@@ -150,7 +158,7 @@ class ImageComparisonContainer extends Component {
     }
   };
 
-  handleMouseDown = e => {
+  handleSeparatorMouseDown = e => {
     e.preventDefault();
     this.changeSeparatorMoveState(true);
   };
