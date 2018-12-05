@@ -4,17 +4,19 @@ import PropTypes from "prop-types";
 import InfoPoint from "../info-point/info-point.jsx";
 import ImageComparison from "./image-comparison.jsx";
 
-const { string, oneOf, number, shape, arrayOf } = PropTypes;
+const { string, oneOf, number, shape, arrayOf, bool } = PropTypes;
 
 class ImageComparisonContainer extends Component {
   state = {
-    separatorLeft: 0.5,
+    separatorLeft: this.props.initialSeparatorLeftPosition,
     separatorMoveState: false
   };
 
   static propTypes = {
     before: string.isRequired,
     after: string.isRequired,
+    clickableImage: bool,
+    initialSeparatorLeftPosition: number,
     infoPoints: arrayOf(
       shape({
         title: string,
@@ -25,6 +27,10 @@ class ImageComparisonContainer extends Component {
         place: oneOf(["before", "after", "both"])
       })
     )
+  };
+  static defaultProps = {
+    initialSeparatorLeftPosition: 0.5,
+    clickableImage: false
   };
 
   sliderElement = null;
