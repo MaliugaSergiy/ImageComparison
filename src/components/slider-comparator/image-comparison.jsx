@@ -23,7 +23,7 @@ class ImageComparison extends Component {
     onImageComparisonMouseDown: func.isRequired,
     onSeparatorMouseDown: func.isRequired,
     onMouseMove: func.isRequired,
-    onMouseUp: func.isRequired,
+
     onTouchStart: func.isRequired,
     onTouchEnd: func.isRequired,
     onTouchMove: func.isRequired,
@@ -43,7 +43,7 @@ class ImageComparison extends Component {
       onImageComparisonMouseDown,
       onMouseMove,
       onSeparatorMouseDown,
-      onMouseUp,
+
       onTouchStart,
       onTouchEnd,
       onTouchMove,
@@ -81,14 +81,7 @@ class ImageComparison extends Component {
                 transform: `translateX(${imageTransform})`
               }}
             >
-              <img
-                className="ImageComparison-image"
-                src={after}
-                alt=""
-                onContextMenu={() =>
-                  console.log("onContextMenu-imagePositioner")
-                }
-              />
+              <img className="ImageComparison-image" src={after} alt="" />
 
               {this.renderInfoPoints(PLACES.AFTER)}
             </div>
@@ -101,7 +94,6 @@ class ImageComparison extends Component {
           className="ImageComparison-separator"
           style={{ left: percentLeftPosition }}
           onMouseDown={onSeparatorMouseDown}
-          onMouseUp={onMouseUp}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
           ref={separatorRef}

@@ -53,7 +53,6 @@ class ImageComparisonContainer extends Component {
         onScrollStateChange={this.handleScrollStateChange}
         onImageComparisonMouseDown={this.handleImageComparisonMouseDown}
         onSeparatorMouseDown={this.handleSeparatorMouseDown}
-        onMouseUp={this.handleMouseUp}
         onMouseMove={this.handleMouseMove}
         onMouseLeave={this.handleMouseLeave}
         onTouchMove={this.handleTouchMove}
@@ -73,6 +72,14 @@ class ImageComparisonContainer extends Component {
         ))}
       </ImageComparison>
     );
+  }
+
+  componentDidMount() {
+    window.addEventListener("onmouseup", this.resetSeparatorMoveState);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("onmouseup", this.resetSeparatorMoveState);
   }
 
   getSeparatorLeftProperty() {
@@ -121,10 +128,7 @@ class ImageComparisonContainer extends Component {
   increaseImage(e) {
     const { left, right } = this.separatorElement.getBoundingClientRect();
     const { separatorLeft } = this.state;
-
     const { clientX } = e;
-
-    console.log({ left, right, clientX });
 
     if (clientX < left - 16) {
       const tempSeparatorLeft = this.getTempSeparatorLeft(
@@ -155,6 +159,10 @@ class ImageComparisonContainer extends Component {
     this.setState({
       separatorMoveState
     });
+  }
+
+  resetSeparatorMoveState() {
+    this.changeSeparatorMoveState(false);
   }
 
   setImageComparisonRef = element => {
@@ -204,7 +212,10 @@ class ImageComparisonContainer extends Component {
     if (this.state.separatorMoveState) {
       this.setSeparatorPosition(separatorLeftPosition);
     }
-    this.increaseImage(e);
+
+    if (this.props.increaseByHover) {
+      this.increaseImage(e);
+    }
   };
 
   handleTouchMove = e => {
@@ -218,10 +229,6 @@ class ImageComparisonContainer extends Component {
   handleSeparatorMouseDown = e => {
     e.preventDefault();
     this.changeSeparatorMoveState(true);
-  };
-
-  handleMouseUp = () => {
-    this.changeSeparatorMoveState(false);
   };
 
   handleTouchStart = () => {
