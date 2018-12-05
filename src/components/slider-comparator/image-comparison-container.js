@@ -75,11 +75,11 @@ class ImageComparisonContainer extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener("onmouseup", this.resetSeparatorMoveState);
+    window.addEventListener("mouseup", this.resetSeparatorMoveState);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("onmouseup", this.resetSeparatorMoveState);
+    window.removeEventListener("mouseup", this.resetSeparatorMoveState);
   }
 
   getSeparatorLeftProperty() {
@@ -161,9 +161,12 @@ class ImageComparisonContainer extends Component {
     });
   }
 
-  resetSeparatorMoveState() {
-    this.changeSeparatorMoveState(false);
-  }
+  resetSeparatorMoveState = () => {
+    console.log("dsdsds1");
+    this.setState({
+      separatorMoveState: false
+    });
+  };
 
   setImageComparisonRef = element => {
     if (!element) {
@@ -238,22 +241,6 @@ class ImageComparisonContainer extends Component {
   handleTouchEnd = () => {
     this.changeSeparatorMoveState(false);
   };
-
-  // handleMouseEnterBefore = () => {
-  //   console.log("​handleMouseEnterBefore");
-  // };
-
-  // handleMouseEnterAfter = () => {
-  //   console.log("handleMouseEnterAfter");
-  // };
-
-  // handleMouseLeaveBefore = () => {
-  //   console.log("handleMouseLeaveBefore");
-  // };
-
-  // handleMouseLeaveAfter = () => {
-  //   console.log("handleMouseLeaveAfter");
-  // };
 }
 
 export default ImageComparisonContainer;
