@@ -22,7 +22,11 @@ class ImageComparison extends Component {
     onClick: func.isRequired,
     onMouseMove: func.isRequired,
     onMouseDown: func.isRequired,
-    onMouseUp: func.isRequired
+    onMouseUp: func.isRequired,
+    onTouchStart: func.isRequired,
+    onTouchEnd: func.isRequired,
+    onTouchMove: func.isRequired,
+    onTouchCancel: func.isRequired
   };
 
   static defaultProps = {};

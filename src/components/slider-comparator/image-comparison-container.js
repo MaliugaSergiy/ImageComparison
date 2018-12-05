@@ -1,22 +1,37 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 import InfoPoint from "../info-point/info-point.jsx";
 import ImageComparison from "./image-comparison.jsx";
 
-const before =
-  "https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg";
-const after = "https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg";
+const { string, oneOf, number, shape, arrayOf } = PropTypes;
 
 class ImageComparisonContainer extends Component {
   state = {
     separatorLeft: 0.55,
-    separatorMoveState: false
+    separatorMoveState: false,
+    infoPoints: arrayOf(
+      shape({
+        title: string,
+        position: shape({
+          top: number,
+          left: number
+        }),
+        place: oneOf(["before", "after", "both"])
+      })
+    )
+  };
+
+  static propTypes = {
+    before: string.isRequired,
+    after: string.isRequired
   };
 
   sliderElement = null;
 
   render() {
     const { separatorLeft } = this.state;
+    const { before, after, infoPoints } = this.props;
     return (
       <ImageComparison
         before={before}
@@ -34,30 +49,16 @@ class ImageComparisonContainer extends Component {
         onTouchStart={this.handleTouchStart}
         onTouchEnd={this.handleTouchEnd}
       >
-        <InfoPoint
-          title="Автоматическая система открытия/закрытия"
-          position={{ top: 22, left: 50 }}
-          place="after"
-        >
-          Можете управлять всей солнцезащитной системой со своего смартфона или
-          с пульта
-        </InfoPoint>
-        <InfoPoint
-          title="Автоматическая система открытия/закрытия"
-          position={{ top: 72, left: 70 }}
-          place="before"
-        >
-          "Можете управлять всей солнцезащитной системой со своего смартфона или
-          с пульта"
-        </InfoPoint>
-        <InfoPoint
-          title="Автоматическая система открытия/закрытия"
-          position={{ top: 85, left: 15 }}
-          place="both"
-        >
-          "Можете управлять всей солнцезащитной системой со своего смартфона или
-          с пульта"
-        </InfoPoint>
+        {infoPoints.map((infoPoint, index) => (
+          <InfoPoint
+            key={index}
+            title={infoPoint.title}
+            position={infoPoint.position}
+            place={infoPoint.place}
+          >
+            {infoPoint.description}
+          </InfoPoint>
+        ))}
       </ImageComparison>
     );
   }
