@@ -9,6 +9,7 @@
   height: auto;
   left: 0;
   top: 0;
+  overflow: hidden;
 }
 
 .ImageComparison-afterImageHolder {

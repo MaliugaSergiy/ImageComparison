@@ -46,6 +46,10 @@ class ImageComparison extends Component {
       onTouchEnd,
       onTouchMove,
       onTouchCancel
+      // onMouseEnterBefore,
+      // onMouseEnterAfter,
+      // onMouseLeaveBefore,
+      // onMouseLeaveAfter
     } = this.props;
 
     const percentLeftPosition = `${separatorPosition.left * 100}%`;
@@ -61,9 +65,27 @@ class ImageComparison extends Component {
         onTouchCancel={onTouchCancel}
         ref={Ref}
       >
-        <div className="ImageComparison-images">
+        <div
+          className="ImageComparison-images"
+          onMouseEnter={() => console.log("dsdsd")}
+          onMouseLeave={() => console.log("dsdsd")}
+          onMouseOver={() => console.log("dsdsd")}
+          onMouseOut={() => console.log("dsdsd")}
+          onClick={() => console.log("dsdsd")}
+          onContextMenu={() => console.log("dsdsd")}
+        >
           <div className="ImageComparison-beforeImageHolder">
-            <img className="ImageComparison-image" src={before} alt="" />
+            <img
+              className="ImageComparison-image"
+              src={before}
+              alt=""
+              onMouseEnter={() => console.log("dsdsd")}
+              onMouseLeave={() => console.log("dsdsd")}
+              onMouseOver={() => console.log("dsdsd")}
+              onMouseOut={() => console.log("dsdsd")}
+              onClick={() => console.log("dsdsd")}
+              onContextMenu={() => console.log("dsdsd")}
+            />
             <div className="ImageComparison-infoPoints">
               {this.renderInfoPoints(PLACES.BEFORE)}
             </div>
@@ -79,6 +101,12 @@ class ImageComparison extends Component {
               style={{
                 transform: `translateX(${imageTransform})`
               }}
+              onMouseEnter={() => console.log("dsdsd")}
+              onMouseLeave={() => console.log("dsdsd")}
+              onMouseOver={() => console.log("dsdsd")}
+              onMouseOut={() => console.log("dsdsd")}
+              onClick={() => console.log("dsdsd")}
+              onContextMenu={() => console.log("dsdsd")}
             >
               <img className="ImageComparison-image" src={after} alt="" />
               <div className="ImageComparison-infoPoints">

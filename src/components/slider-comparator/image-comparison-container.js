@@ -54,6 +54,10 @@ class ImageComparisonContainer extends Component {
         onTouchCancel={this.handleTouchCancel}
         onTouchStart={this.handleTouchStart}
         onTouchEnd={this.handleTouchEnd}
+        onMouseEnterBefore={this.handleMouseEnterBefore}
+        onMouseEnterAfter={this.handleMouseEnterAfter}
+        onMouseLeaveBefore={this.handleMouseLeaveBefore}
+        onMouseLeaveAfter={this.handleMouseLeaveAfter}
       >
         {infoPoints.map((infoPoint, index) => (
           <InfoPoint
@@ -161,6 +165,22 @@ class ImageComparisonContainer extends Component {
 
   handleTouchEnd = () => {
     this.changeSeparatorMoveState(false);
+  };
+
+  handleMouseEnterBefore = () => {
+    console.log("​handleMouseEnterBefore");
+  };
+
+  handleMouseEnterAfter = () => {
+    console.log("handleMouseEnterAfter");
+  };
+
+  handleMouseLeaveBefore = () => {
+    console.log("handleMouseLeaveBefore");
+  };
+
+  handleMouseLeaveAfter = () => {
+    console.log("handleMouseLeaveAfter");
   };
 }
 
