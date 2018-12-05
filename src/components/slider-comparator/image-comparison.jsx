@@ -5,6 +5,11 @@ import "./image-comparison.css";
 
 const { string, func, number, shape } = PropTypes;
 
+const PLACES = {
+  BEFORE: "before",
+  AFTER: "after",
+  BOTH: "both"
+};
 class ImageComparison extends Component {
   static propTypes = {
     before: string.isRequired,
@@ -55,7 +60,7 @@ class ImageComparison extends Component {
           <div className="ImageComparison-beforeImageHolder">
             <img className="ImageComparison-image" src={before} alt="" />
             <div className="ImageComparison-infoPoints">
-              {this.renderInfoPoints("before")}
+              {this.renderInfoPoints(PLACES.BEFORE)}
             </div>
           </div>
           <div
@@ -64,17 +69,14 @@ class ImageComparison extends Component {
           >
             <div className="ImageComparison-imagePositioner">
               <img className="ImageComparison-image" src={after} alt="" />
-              <div
-                className="ImageComparison-infoPoints"
-                // style={{ left: `px` }}
-              >
-                {this.renderInfoPoints("after")}
+              <div className="ImageComparison-infoPoints">
+                {this.renderInfoPoints(PLACES.AFTER)}
               </div>
             </div>
           </div>
         </div>
         <div className="ImageComparison-infoPoints">
-          {this.renderInfoPoints("both")}
+          {this.renderInfoPoints(PLACES.BOTH)}
         </div>
         <div
           className="ImageComparison-separator"
