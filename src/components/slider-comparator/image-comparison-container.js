@@ -8,7 +8,7 @@ const { string, oneOf, number, shape, arrayOf } = PropTypes;
 
 class ImageComparisonContainer extends Component {
   state = {
-    separatorLeft: 0.55,
+    separatorLeft: 0.5,
     separatorMoveState: false
   };
 

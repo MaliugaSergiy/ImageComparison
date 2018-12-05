@@ -49,6 +49,7 @@ class ImageComparison extends Component {
     } = this.props;
 
     const percentLeftPosition = `${separatorPosition.left * 100}%`;
+    const imageTransform = `${(1 - separatorPosition.left) * 100}%`;
 
     return (
       <div
@@ -69,9 +70,16 @@ class ImageComparison extends Component {
           </div>
           <div
             className="ImageComparison-afterImageHolder"
-            style={{ width: percentLeftPosition }}
+            style={{
+              transform: `translateX(-${imageTransform})`
+            }}
           >
-            <div className="ImageComparison-imagePositioner">
+            <div
+              className="ImageComparison-imagePositioner"
+              style={{
+                transform: `translateX(${imageTransform})`
+              }}
+            >
               <img className="ImageComparison-image" src={after} alt="" />
               <div className="ImageComparison-infoPoints">
                 {this.renderInfoPoints(PLACES.AFTER)}
