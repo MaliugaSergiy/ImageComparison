@@ -51,7 +51,7 @@ class ImageComparisonContainer extends Component {
         Ref={this.setImageComparisonRef}
         separatorRef={this.setSeparatorElementRef}
         onScrollStateChange={this.handleScrollStateChange}
-        onImageComparisonMouseDown={this.handleImageComparisonMouseDown}
+        onMouseDown={this.handleMouseDown}
         onSeparatorMouseDown={this.handleSeparatorMouseDown}
         onMouseMove={this.handleMouseMove}
         onMouseLeave={this.handleMouseLeave}
@@ -197,8 +197,7 @@ class ImageComparisonContainer extends Component {
     this.changeSeparatorMoveState(false);
   };
 
-  /** */
-  handleImageComparisonMouseDown = e => {
+  handleMouseDown = e => {
     const separatorLeftPosition = this.getSeparatorLeftPosition(e);
     const { clickableImage } = this.props;
 
@@ -207,6 +206,7 @@ class ImageComparisonContainer extends Component {
     }
 
     this.setSeparatorPosition(separatorLeftPosition);
+    this.setTempSeparatorLeft(null);
   };
 
   handleMouseMove = e => {
