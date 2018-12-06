@@ -120,9 +120,11 @@ class ImageComparisonContainer extends Component {
   }
 
   setTempSeparatorLeft(tempSeparatorLeft) {
-    this.setState({
-      tempSeparatorLeft
-    });
+    if (this.props.increaseByHover) {
+      this.setState({
+        tempSeparatorLeft
+      });
+    }
   }
 
   increaseImage(e) {
@@ -162,7 +164,6 @@ class ImageComparisonContainer extends Component {
   }
 
   resetSeparatorMoveState = () => {
-    console.log("dsdsds1");
     this.setState({
       separatorMoveState: false
     });
@@ -189,7 +190,6 @@ class ImageComparisonContainer extends Component {
   };
 
   handleMouseLeave = () => {
-    this.changeSeparatorMoveState(false);
     this.setTempSeparatorLeft(null);
   };
 
