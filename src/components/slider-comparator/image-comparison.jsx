@@ -67,6 +67,7 @@ class ImageComparison extends Component {
 
             {this.renderInfoPoints(PLACES.BEFORE)}
           </div>
+
           <div
             className="ImageComparison-afterImageHolder"
             style={{
