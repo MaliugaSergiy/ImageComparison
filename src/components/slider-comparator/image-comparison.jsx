@@ -1,6 +1,9 @@
 import React, { Component, Children, Fragment } from "react";
 import PropTypes from "prop-types";
 
+import IconContainer from "../icon-container/icon-container";
+import IconResize from "../icons/icon-resize/icon-resize";
+
 import "./image-comparison.css";
 
 const { string, func, number, shape } = PropTypes;
@@ -101,7 +104,11 @@ class ImageComparison extends Component {
           ref={separatorRef}
         >
           <div className="ImageComparison-separatorLine" ref={separatorRef}>
-            <div className="ImageComparison-separatorThumb" />
+            <div className="ImageComparison-separatorThumb">
+              <IconContainer>
+                <IconResize />
+              </IconContainer>
+            </div>
           </div>
         </div>
       </div>

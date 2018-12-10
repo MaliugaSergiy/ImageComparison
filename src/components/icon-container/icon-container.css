@@ -1,0 +1,61 @@
+.IconContainer {
+  display: inline-block;
+  color: inherit;
+  fill: currentColor;
+  vertical-align: top;
+}
+
+.IconContainer--size-tiny {
+  height: 12px;
+  min-width: 12px;
+  font-size: 12px;
+}
+
+.IconContainer--size-xsmall {
+  height: 16px;
+  min-width: 16px;
+  font-size: 16px;
+}
+
+.IconContainer--size-small {
+  height: 24px;
+  min-width: 24px;
+  font-size: 24px;
+}
+
+.IconContainer--size-medium {
+  height: 32px;
+  min-width: 32px;
+  font-size: 32px;
+}
+
+.IconContainer--size-mediumPlus {
+  height: 36px;
+  min-width: 36px;
+  font-size: 36px;
+}
+
+.IconContainer--size-large {
+  height: 48px;
+  min-width: 48px;
+  font-size: 48px;
+}
+
+.IconContainer--size-xlarge {
+  height: 64px;
+  min-width: 64px;
+  font-size: 64px;
+}
+
+.IconContainer--size-huge {
+  height: 128px;
+  min-width: 128px;
+  font-size: 128px;
+}
+
+.IconContainer--inline {
+  height: 1em;
+  min-width: 1em;
+  font-size: inherit;
+  vertical-align: middle;
+}

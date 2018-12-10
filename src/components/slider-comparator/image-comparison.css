@@ -55,10 +55,24 @@
 
 .ImageComparison-separatorThumb {
   position: absolute;
-  background-color: rgb(171, 221, 148);
+  background-color: #fdcd54;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   transform: translate(-50%, -50%);
   top: 50%;
+  box-shadow: 0px 0px 0px 8px rgba(255, 255, 255, 0.4);
+  transition: width 0.2s ease-out, height 0.2s ease-out,
+    box-shadow 0.2s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ImageComparison-separator:hover .ImageComparison-separatorThumb {
+  width: 56px;
+  height: 56px;
+  box-shadow: 0px 0px 0px 13px rgba(255, 255, 255, 0.4);
+  transition: width 0.2s ease-out, height 0.2s ease-out,
+    box-shadow 0.2s ease-out 0.1s;
 }
