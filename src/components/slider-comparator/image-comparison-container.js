@@ -8,6 +8,8 @@ const { string, oneOf, number, shape, arrayOf, bool } = PropTypes;
 
 const INCREASE_AMOUNT = 0.02;
 
+const SEPARATOR_GAP = 16;
+
 class ImageComparisonContainer extends Component {
   state = {
     separatorLeft: this.props.initialSeparatorLeftPosition,
@@ -52,12 +54,11 @@ class ImageComparisonContainer extends Component {
         separatorPosition={this.getSeparatorLeftProperty()}
         Ref={this.setImageComparisonRef}
         separatorRef={this.setSeparatorElementRef}
-        onScrollStateChange={this.handleScrollStateChange}
         onMouseDown={this.handleMouseDown}
         onSeparatorMouseDown={this.handleSeparatorMouseDown}
         onMouseMove={this.handleMouseMove}
-        onMouseLeave={this.handleMouseLeave}
         onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
         onTouchMove={this.handleTouchMove}
         onTouchCancel={this.handleTouchCancel}
         onTouchStart={this.handleTouchStart}
@@ -111,15 +112,15 @@ class ImageComparisonContainer extends Component {
     return percentSeparatorPosition;
   };
 
-  getTempSeparatorLeft(tempSeparatorLeft) {
-    if (tempSeparatorLeft > 1) {
+  getTempSeparatorLeft(modifiedSeparatorLeft) {
+    if (modifiedSeparatorLeft > 1) {
       return 1;
     }
-    if (tempSeparatorLeft < 0) {
+    if (modifiedSeparatorLeft < 0) {
       return 0;
     }
 
-    return tempSeparatorLeft;
+    return modifiedSeparatorLeft;
   }
 
   setTempSeparatorLeft(tempSeparatorLeft) {
@@ -145,7 +146,7 @@ class ImageComparisonContainer extends Component {
     const { separatorLeft } = this.state;
     const { clientX } = e;
 
-    if (clientX < left - 16) {
+    if (clientX < left - SEPARATOR_GAP) {
       const tempSeparatorLeft = this.getTempSeparatorLeft(
         separatorLeft + INCREASE_AMOUNT
       );
@@ -153,7 +154,7 @@ class ImageComparisonContainer extends Component {
       return;
     }
 
-    if (clientX > right + 16) {
+    if (clientX > right + SEPARATOR_GAP) {
       const tempSeparatorLeft = this.getTempSeparatorLeft(
         separatorLeft - INCREASE_AMOUNT
       );
@@ -243,7 +244,7 @@ class ImageComparisonContainer extends Component {
   };
 
   handleTouchCancel = () => {
-    this.changeSeparatorMoveState(false);
+    this.resetSeparatorMoveState();
   };
 
   handleMouseDown = e => {
@@ -288,7 +289,7 @@ class ImageComparisonContainer extends Component {
   };
 
   handleTouchEnd = () => {
-    this.changeSeparatorMoveState(false);
+    this.resetSeparatorMoveState();
   };
 }
 

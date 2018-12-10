@@ -19,6 +19,7 @@ class ImageComparison extends Component {
     }).isRequired,
     Ref: func.isRequired,
     separatorRef: func.isRequired,
+    onMouseEnter: func.isRequired,
     onMouseLeave: func.isRequired,
     onMouseDown: func.isRequired,
     onSeparatorMouseDown: func.isRequired,
