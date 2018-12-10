@@ -1,5 +1,6 @@
 .ImageComparison {
   position: relative;
+  overflow: hidden;
 }
 
 .ImageComparison-images {
@@ -33,6 +34,7 @@
 .ImageComparison-image {
   width: 100%;
   height: auto;
+  vertical-align: top;
 }
 
 .ImageComparison-separator {

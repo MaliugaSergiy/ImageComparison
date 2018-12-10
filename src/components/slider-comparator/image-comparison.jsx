@@ -38,6 +38,7 @@ class ImageComparison extends Component {
       separatorPosition,
       Ref,
       separatorRef,
+      onMouseEnter,
       onMouseLeave,
       onMouseDown,
       onMouseMove,
@@ -56,6 +57,7 @@ class ImageComparison extends Component {
         className="ImageComparison"
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
+        onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         onTouchMove={onTouchMove}
         onTouchCancel={onTouchCancel}

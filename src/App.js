@@ -42,6 +42,7 @@ class App extends Component {
             infoPoints={infoPoints}
             initialSeparatorLeftPosition={0.57}
             increaseByHover={true}
+            setInitialSeparatorLeftPositionDelay={2000}
           />
         </Container>
       </div>

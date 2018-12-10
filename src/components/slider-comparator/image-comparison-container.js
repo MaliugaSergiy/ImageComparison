@@ -41,6 +41,8 @@ class ImageComparisonContainer extends Component {
   imageComparisonElement = null;
   separatorElement = null;
 
+  separatorDelayTimer = null;
+
   render() {
     const { before, after, infoPoints } = this.props;
     return (
@@ -55,6 +57,7 @@ class ImageComparisonContainer extends Component {
         onSeparatorMouseDown={this.handleSeparatorMouseDown}
         onMouseMove={this.handleMouseMove}
         onMouseLeave={this.handleMouseLeave}
+        onMouseEnter={this.handleMouseEnter}
         onTouchMove={this.handleTouchMove}
         onTouchCancel={this.handleTouchCancel}
         onTouchStart={this.handleTouchStart}
@@ -127,6 +130,16 @@ class ImageComparisonContainer extends Component {
     }
   }
 
+  setInitialSeparatorLeftPosition = () => {
+    const { initialSeparatorLeftPosition } = this.props;
+
+    this.setState({
+      separatorLeft: initialSeparatorLeftPosition
+    });
+
+    this.separatorDelayTimer = null;
+  };
+
   increaseImage(e) {
     const { left, right } = this.separatorElement.getBoundingClientRect();
     const { separatorLeft } = this.state;
@@ -150,6 +163,28 @@ class ImageComparisonContainer extends Component {
 
     this.setTempSeparatorLeft(null);
   }
+
+  clearDelayTimer = () => {
+    if (this.separatorDelayTimer) {
+      clearTimeout(this.separatorDelayTimer);
+      this.separatorDelayTimer = null;
+    }
+  };
+
+  setDelayTimer = () => {
+    const {
+      setInitialSeparatorLeftPositionDelay,
+      initialSeparatorLeftPosition
+    } = this.props;
+    const { separatorLeft } = this.state;
+
+    if (initialSeparatorLeftPosition !== separatorLeft) {
+      this.separatorDelayTimer = setTimeout(
+        this.setInitialSeparatorLeftPosition,
+        setInitialSeparatorLeftPositionDelay
+      );
+    }
+  };
 
   setSeparatorPosition(separatorLeft) {
     this.setState({
@@ -189,8 +224,22 @@ class ImageComparisonContainer extends Component {
     this.changeSeparatorMoveState(state);
   };
 
+  handleMouseEnter = () => {
+    const { setInitialSeparatorLeftPositionDelay } = this.props;
+
+    if (setInitialSeparatorLeftPositionDelay) {
+      this.clearDelayTimer();
+    }
+  };
+
   handleMouseLeave = () => {
+    const { setInitialSeparatorLeftPositionDelay } = this.props;
+
     this.setTempSeparatorLeft(null);
+
+    if (setInitialSeparatorLeftPositionDelay) {
+      this.setDelayTimer();
+    }
   };
 
   handleTouchCancel = () => {
