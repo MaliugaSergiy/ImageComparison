@@ -12,18 +12,24 @@
   color: #fff;
   left: 16px;
   top: -8px;
+  width: 300px;
+  text-align: left;
 }
 
 .InfoPoint-title {
   font-size: 18px;
+  font-size: 24px;
+  margin-bottom: 16px;
 }
 
 .InfoPoint-description {
+  position: relative;
   font-size: 14px;
-  opacity: 0;
+  opacity: 1;
   transition: 0.2s opacity ease-out;
+  font-size: 18px;
 }
-
+/* 
 .InfoPoint:hover .InfoPoint-description {
   opacity: 1;
-}
+} */
