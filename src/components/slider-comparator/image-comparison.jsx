@@ -22,8 +22,8 @@ class ImageComparison extends Component {
       left: number
     }).isRequired,
     separatorRef: func.isRequired,
-    onMouseEnter: func.isRequired,
-    onMouseLeave: func.isRequired,
+    // onMouseEnter: func.isRequired,
+    // onMouseLeave: func.isRequired,
     onMouseMove: func.isRequired,
     onTouchStart: func.isRequired,
     onTouchEnd: func.isRequired,
@@ -42,8 +42,8 @@ class ImageComparison extends Component {
       after,
       separatorPosition,
       separatorRef,
-      onMouseEnter,
-      onMouseLeave,
+      // onMouseEnter,
+      // onMouseLeave,
       onMouseMove,
       onTouchStart,
       onTouchEnd,
@@ -60,8 +60,8 @@ class ImageComparison extends Component {
         className="ImageComparison"
         onMouseMove={onMouseMove}
         onMouseDown={onMouseDown}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
+        // onMouseEnter={onMouseEnter}
+        // onMouseLeave={onMouseLeave}
         onTouchMove={onTouchMove}
         onTouchCancel={onTouchCancel}
         onTouchStart={onTouchStart}

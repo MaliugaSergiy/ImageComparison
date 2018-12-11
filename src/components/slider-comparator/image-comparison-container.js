@@ -15,8 +15,8 @@ class ImageComparisonContainer extends Component {
   state = {
     separatorLeft: this.props.initialSeparatorLeftPosition,
     tempSeparatorLeft: null,
-    elementGeometry: {},
-    selectedElement: null
+    geometry: {},
+    pointX: null
   };
 
   static propTypes = {
@@ -56,8 +56,8 @@ class ImageComparisonContainer extends Component {
         separatorRef={this.setSeparatorElementRef}
         onMouseMove={this.handleMouseMove}
         onMouseDown={this.handleMouseDown}
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
+        // onMouseEnter={this.handleMouseEnter}
+        // onMouseLeave={this.handleMouseLeave}
         onTouchMove={this.handleTouchMove}
         onTouchCancel={this.handleTouchCancel}
         onTouchStart={this.handleTouchStart}
@@ -108,29 +108,48 @@ class ImageComparisonContainer extends Component {
 
   selectLeft() {
     this.setState({
-      selectedElement: "left"
+      pointX: "left"
     });
   }
 
   selectRight() {
     this.setState({
-      selectedElement: "right"
+      pointX: "right"
     });
   }
 
   resetSelected() {
     this.setState({
-      selectedElement: null
+      pointX: null
     });
   }
 
-  setSelectedElement(clientX) {
-    if (this.isPointerOverLeft(clientX)) {
+  setPointX(clientX) {
+    const { separatorLeft, geometry } = this.state;
+    const leftBorder = geometry.left;
+    const rightBorder = geometry.left + geometry.width;
+    const separatorLeftPosition = leftBorder + separatorLeft * geometry.width;
+
+    if (
+      this.isPointerOverLeft(
+        clientX,
+        leftBorder,
+        separatorLeftPosition,
+        SEPARATOR_GAP
+      )
+    ) {
       this.selectLeft();
       return;
     }
 
-    if (this.isPointerOverRight(clientX)) {
+    if (
+      this.isPointerOverRight(
+        clientX,
+        separatorLeftPosition,
+        rightBorder,
+        SEPARATOR_GAP
+      )
+    ) {
       this.selectRight();
       return;
     }
@@ -169,9 +188,9 @@ class ImageComparisonContainer extends Component {
     this.isSeparatorMoving = true;
   }
 
-  setElementGeometry(geometry) {
+  setGeometry(geometry) {
     this.setState({
-      elementGeometry: geometry
+      geometry: geometry
     });
   }
 
@@ -179,30 +198,26 @@ class ImageComparisonContainer extends Component {
    * get-s
    **/
 
-  isPointerOverLeft(clientX) {
-    const { separatorLeft, elementGeometry } = this.state;
-    return (
-      clientX < elementGeometry.left + separatorLeft * elementGeometry.width
-    );
+  isPointerOverLeft(cursorPosition, startPoint, endPoint, gap) {
+    const offsetEndPoint = endPoint - gap;
+    return isInRange(cursorPosition, startPoint, offsetEndPoint);
   }
 
-  isPointerOverRight(clientX) {
-    const { separatorLeft, elementGeometry } = this.state;
-    return (
-      clientX > elementGeometry.left + separatorLeft * elementGeometry.width
-    );
+  isPointerOverRight(cursorPosition, startPoint, endPoint, gap) {
+    const offsetStartPoint = startPoint + gap;
+    return isInRange(cursorPosition, offsetStartPoint, endPoint);
   }
 
   getSeparatorPosition() {
-    const { separatorLeft, selectedElement } = this.state;
+    const { separatorLeft, pointX } = this.state;
 
-    if (selectedElement === "left") {
+    if (pointX === "left") {
       return {
         left: separatorLeft + SELECTION_OFFSET
       };
     }
 
-    if (selectedElement === "right") {
+    if (pointX === "right") {
       return {
         left: separatorLeft - SELECTION_OFFSET
       };
@@ -214,7 +229,7 @@ class ImageComparisonContainer extends Component {
   }
 
   getSeparatorLeftPosition = clientX => {
-    const { width, left } = this.state.elementGeometry;
+    const { width, left } = this.state.geometry;
 
     const separatorPosition = clientX - left;
     const percentSeparatorPosition = separatorPosition / width;
@@ -319,7 +334,7 @@ class ImageComparisonContainer extends Component {
     if (increaseByHover) {
     }
 
-    this.setSelectedElement(clientX);
+    this.setPointX(clientX);
   };
 
   /**--------------------------------------- */
@@ -345,7 +360,7 @@ class ImageComparisonContainer extends Component {
   /**--------------------------------------- */
 
   handleGeometryChange = geometry => {
-    this.setElementGeometry(geometry);
+    this.setGeometry(geometry);
   };
 
   /* ↑ HANDLERS ↑ */
