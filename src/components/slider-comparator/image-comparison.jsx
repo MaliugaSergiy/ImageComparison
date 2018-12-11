@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import IconContainer from "../icon-container/icon-container";
 import IconResize from "../icons/icon-resize/icon-resize";
-import getBoundingClientRect from "./helpers/get-bounding-client-rect";
+import toObject from "./helpers/toObject";
 
 import "./image-comparison.css";
 
@@ -133,24 +133,26 @@ class ImageComparison extends Component {
   }
 
   setImageComparisonRef = element => {
-    const { onGeometryChange } = this.props;
-    const rect = getBoundingClientRect(element);
-
-    if (!element) {
-      return;
-    }
-
     this.imageComparisonElement = element;
 
-    onGeometryChange(rect);
+    this.geometryChange();
   };
 
   handleWindowResize = () => {
-    const { onGeometryChange } = this.props;
-    const rect = getBoundingClientRect(this.imageComparisonElement);
-
-    onGeometryChange(rect);
+    this.geometryChange();
   };
+
+  geometryChange() {
+    const { onGeometryChange } = this.props;
+
+    if (!this.imageComparisonElement) {
+      onGeometryChange(null);
+    }
+
+    onGeometryChange(
+      toObject(this.imageComparisonElement.getBoundingClientRect())
+    );
+  }
 }
 
 export default ImageComparison;
