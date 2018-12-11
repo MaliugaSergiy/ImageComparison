@@ -95,10 +95,8 @@ class ImageComparisonContainer extends Component {
     };
   }
 
-  getSeparatorLeftPosition = e => {
+  getSeparatorLeftPosition = clientX => {
     const { width, left } = this.state.elementGeometry;
-
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
 
     const separatorPosition = clientX - left;
     const percentSeparatorPosition = separatorPosition / width;
@@ -142,10 +140,9 @@ class ImageComparisonContainer extends Component {
     this.separatorDelayTimer = null;
   };
 
-  increaseImage(e) {
+  increaseImage(clientX) {
     const { left, right } = this.separatorElement.getBoundingClientRect();
     const { separatorLeft } = this.state;
-    const { clientX } = e;
 
     if (clientX < left - SEPARATOR_GAP) {
       const tempSeparatorLeft = this.getTempSeparatorLeft(
@@ -199,6 +196,7 @@ class ImageComparisonContainer extends Component {
       isSeparatorMoving: false
     });
   };
+
   enableSeparatorMoving = () => {
     this.setState({
       isSeparatorMoving: true
@@ -235,8 +233,8 @@ class ImageComparisonContainer extends Component {
     this.disableSeparatorMoving();
   };
 
-  handleMouseDown = e => {
-    const separatorLeftPosition = this.getSeparatorLeftPosition(e);
+  handleMouseDown = ({ clientX }) => {
+    const separatorLeftPosition = this.getSeparatorLeftPosition(clientX);
     const { clickableImage } = this.props;
 
     if (!clickableImage) {
@@ -247,20 +245,21 @@ class ImageComparisonContainer extends Component {
     this.setTempSeparatorLeft(null);
   };
 
-  handleMouseMove = e => {
-    const separatorLeftPosition = this.getSeparatorLeftPosition(e);
+  handleMouseMove = ({ clientX }) => {
+    const separatorLeftPosition = this.getSeparatorLeftPosition(clientX);
 
     if (this.state.isSeparatorMoving) {
       this.setSeparatorPosition(separatorLeftPosition);
     }
 
     if (this.props.increaseByHover) {
-      this.increaseImage(e);
+      this.increaseImage(clientX);
     }
   };
 
   handleTouchMove = e => {
-    const separatorLeftPosition = this.getSeparatorLeftPosition(e);
+    const { clientX } = e.touches[0];
+    const separatorLeftPosition = this.getSeparatorLeftPosition(clientX);
 
     if (this.state.isSeparatorMoving) {
       this.setSeparatorPosition(separatorLeftPosition);
