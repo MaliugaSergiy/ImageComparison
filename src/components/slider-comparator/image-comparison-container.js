@@ -14,7 +14,7 @@ class ImageComparisonContainer extends Component {
   state = {
     separatorLeft: this.props.initialSeparatorLeftPosition,
     tempSeparatorLeft: null,
-    isSeparatorMoving: false,
+    // isSeparatorMoving: false,
     elementGeometry: {}
   };
 
@@ -42,8 +42,8 @@ class ImageComparisonContainer extends Component {
   };
 
   separatorElement = null;
-
   separatorDelayTimer = null;
+  isSeparatorMoving = false;
 
   render() {
     const { before, after, infoPoints } = this.props;
@@ -131,15 +131,17 @@ class ImageComparisonContainer extends Component {
   }
 
   disableSeparatorMoving = () => {
-    this.setState({
-      isSeparatorMoving: false
-    });
+    this.isSeparatorMoving = false;
+    // this.setState({
+    //   isSeparatorMoving: false
+    // });
   };
 
   enableSeparatorMoving = () => {
-    this.setState({
-      isSeparatorMoving: true
-    });
+    this.isSeparatorMoving = true;
+    // this.setState({
+    //   isSeparatorMoving: true
+    // });
   };
 
   setElementGeometry(geometry) {
@@ -250,7 +252,7 @@ class ImageComparisonContainer extends Component {
   pointerMove(clientX) {
     const separatorLeftPosition = this.getSeparatorLeftPosition(clientX);
 
-    if (this.state.isSeparatorMoving) {
+    if (this.isSeparatorMoving) {
       this.setSeparatorPosition(separatorLeftPosition);
     }
   }
@@ -354,3 +356,27 @@ class ImageComparisonContainer extends Component {
 }
 
 export default ImageComparisonContainer;
+
+// setTouchedPosition(clientX) {
+//   const { separatorLeft, elementGeometry } = this.state;
+
+//   if (
+//     clientX <
+//     elementGeometry.left + separatorLeft * elementGeometry.width
+//   ) {
+//     this.setState({
+//       touched: "left"
+//     });
+//     return;
+//   }
+
+//   if (
+//     clientX >
+//     elementGeometry.left + separatorLeft * elementGeometry.width
+//   ) {
+//     this.setState({
+//       touched: "right"
+//     });
+//     return;
+//   }
+// }
