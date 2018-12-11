@@ -14,7 +14,7 @@ class ImageComparisonContainer extends Component {
   state = {
     separatorLeft: this.props.initialSeparatorLeftPosition,
     tempSeparatorLeft: null,
-    separatorMoveState: false,
+    isSeparatorMoving: false,
     elementGeometry: {}
   };
 
@@ -80,11 +80,11 @@ class ImageComparisonContainer extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener("mouseup", this.resetSeparatorMoveState);
+    window.addEventListener("mouseup", this.disableSeparatorMoving);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("mouseup", this.resetSeparatorMoveState);
+    window.removeEventListener("mouseup", this.disableSeparatorMoving);
   }
 
   getSeparatorLeftProperty() {
@@ -97,7 +97,6 @@ class ImageComparisonContainer extends Component {
 
   getSeparatorLeftPosition = e => {
     const { width, left } = this.state.elementGeometry;
-    console.log("​ImageComparisonContainer -> this.state", this.state);
 
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
 
@@ -195,15 +194,14 @@ class ImageComparisonContainer extends Component {
     });
   }
 
-  changeSeparatorMoveState(separatorMoveState) {
+  disableSeparatorMoving = () => {
     this.setState({
-      separatorMoveState
+      isSeparatorMoving: false
     });
-  }
-
-  resetSeparatorMoveState = () => {
+  };
+  enableSeparatorMoving = () => {
     this.setState({
-      separatorMoveState: false
+      isSeparatorMoving: true
     });
   };
 
@@ -234,7 +232,7 @@ class ImageComparisonContainer extends Component {
   };
 
   handleTouchCancel = () => {
-    this.resetSeparatorMoveState();
+    this.disableSeparatorMoving();
   };
 
   handleMouseDown = e => {
@@ -252,7 +250,7 @@ class ImageComparisonContainer extends Component {
   handleMouseMove = e => {
     const separatorLeftPosition = this.getSeparatorLeftPosition(e);
 
-    if (this.state.separatorMoveState) {
+    if (this.state.isSeparatorMoving) {
       this.setSeparatorPosition(separatorLeftPosition);
     }
 
@@ -264,22 +262,22 @@ class ImageComparisonContainer extends Component {
   handleTouchMove = e => {
     const separatorLeftPosition = this.getSeparatorLeftPosition(e);
 
-    if (this.state.separatorMoveState) {
+    if (this.state.isSeparatorMoving) {
       this.setSeparatorPosition(separatorLeftPosition);
     }
   };
 
   handleSeparatorMouseDown = e => {
     e.preventDefault();
-    this.changeSeparatorMoveState(true);
+    this.enableSeparatorMoving();
   };
 
   handleTouchStart = () => {
-    this.changeSeparatorMoveState(true);
+    this.enableSeparatorMoving();
   };
 
   handleTouchEnd = () => {
-    this.resetSeparatorMoveState();
+    this.disableSeparatorMoving();
   };
 
   setElementGeometry(geometry) {
