@@ -138,6 +138,7 @@ class ImageComparison extends Component {
 
   setImageComparisonRef = element => {
     const { onGeometryChange } = this.props;
+    const rect = getBoundingClientRect(element);
 
     if (!element) {
       return;
@@ -145,13 +146,14 @@ class ImageComparison extends Component {
 
     this.imageComparisonElement = element;
 
-    onGeometryChange(getBoundingClientRect(element));
+    onGeometryChange(rect);
   };
 
   handleWindowResize = () => {
     const { onGeometryChange } = this.props;
+    const rect = getBoundingClientRect(this.imageComparisonElement);
 
-    onGeometryChange(getBoundingClientRect(this.imageComparisonElement));
+    onGeometryChange(rect);
   };
 }
 

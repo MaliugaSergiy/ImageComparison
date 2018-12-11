@@ -282,21 +282,9 @@ class ImageComparisonContainer extends Component {
     this.resetSeparatorMoveState();
   };
 
-  setElementWidth(elementWidth) {
-    this.setState({
-      elementWidth
-    });
-  }
-
-  setElementLeft(elementLeft) {
-    this.setState({
-      elementLeft
-    });
-  }
-
   setElementGeometry(geometry) {
     this.setState({
-      elementGeometry: geometry
+      elementGeometry: { ...geometry }
     });
   }
 
