@@ -53,7 +53,6 @@ class ImageComparisonContainer extends Component {
         after={after}
         separatorPosition={this.getSeparatorLeftProperty()}
         separatorRef={this.setSeparatorElementRef}
-        onMouseDown={this.handleMouseDown}
         onMouseMove={this.handleMouseMove}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
@@ -82,10 +81,12 @@ class ImageComparisonContainer extends Component {
    */
 
   componentDidMount() {
+    window.addEventListener("mousedown", this.handleMouseDown);
     window.addEventListener("mouseup", this.handleMouseUp);
   }
 
   componentWillUnmount() {
+    window.removeEventListener("mousedown", this.handleMouseDown);
     window.removeEventListener("mouseup", this.handleMouseUp);
   }
 
@@ -186,7 +187,7 @@ class ImageComparisonContainer extends Component {
     return modifiedSeparatorLeft;
   }
 
-  /** UTILITS */
+  /** UTILITIES */
 
   increaseImage(clientX) {
     const { left, right } = this.separatorElement.getBoundingClientRect();
@@ -233,6 +234,13 @@ class ImageComparisonContainer extends Component {
     }
   };
 
+  getIsImageComparison(clientX, clientY) {
+    const { top, bottom, left, right } = this.state.elementGeometry;
+    return (
+      clientX >= left && clientX <= right && clientY >= top && clientY <= bottom
+    );
+  }
+
   /**
    * POINTERS
    */
@@ -240,10 +248,14 @@ class ImageComparisonContainer extends Component {
   /** HANDLERS */
 
   handleMouseDown = e => {
-    const { clientX } = e;
+    const { clientX, clientY } = e;
     const separatorLeftPosition = this.getSeparatorLeftPosition(clientX);
     const { clickableImage } = this.props;
     e.preventDefault();
+
+    if (!this.getIsImageComparison(clientX, clientY)) {
+      return;
+    }
 
     if (!clickableImage) {
       return;
