@@ -14,7 +14,8 @@ class ImageComparisonContainer extends Component {
   state = {
     separatorLeft: this.props.initialSeparatorLeftPosition,
     tempSeparatorLeft: null,
-    separatorMoveState: false
+    separatorMoveState: false,
+    elementGeometry: {}
   };
 
   static propTypes = {
@@ -40,7 +41,6 @@ class ImageComparisonContainer extends Component {
     increaseByHover: false
   };
 
-  imageComparisonElement = null;
   separatorElement = null;
 
   separatorDelayTimer = null;
@@ -63,6 +63,7 @@ class ImageComparisonContainer extends Component {
         onTouchCancel={this.handleTouchCancel}
         onTouchStart={this.handleTouchStart}
         onTouchEnd={this.handleTouchEnd}
+        onGeometryChange={this.handleGeometryChange}
       >
         {infoPoints.map((infoPoint, index) => (
           <InfoPoint
@@ -95,7 +96,8 @@ class ImageComparisonContainer extends Component {
   }
 
   getSeparatorLeftPosition = e => {
-    const { width, left } = this.imageComparisonElement.getBoundingClientRect();
+    const { width, left } = this.state.elementGeometry;
+    console.log("​ImageComparisonContainer -> this.state", this.state);
 
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
 
@@ -205,24 +207,12 @@ class ImageComparisonContainer extends Component {
     });
   };
 
-  setImageComparisonRef = element => {
-    if (!element) {
-      return;
-    }
-
-    this.imageComparisonElement = element;
-  };
-
   setSeparatorElementRef = element => {
     if (!element) {
       return;
     }
 
     this.separatorElement = element;
-  };
-
-  handleScrollStateChange = state => {
-    this.changeSeparatorMoveState(state);
   };
 
   handleMouseEnter = () => {
@@ -290,6 +280,28 @@ class ImageComparisonContainer extends Component {
 
   handleTouchEnd = () => {
     this.resetSeparatorMoveState();
+  };
+
+  setElementWidth(elementWidth) {
+    this.setState({
+      elementWidth
+    });
+  }
+
+  setElementLeft(elementLeft) {
+    this.setState({
+      elementLeft
+    });
+  }
+
+  setElementGeometry(geometry) {
+    this.setState({
+      elementGeometry: geometry
+    });
+  }
+
+  handleGeometryChange = geometry => {
+    this.setElementGeometry(geometry);
   };
 }
 

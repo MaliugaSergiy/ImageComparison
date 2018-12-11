@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import IconContainer from "../icon-container/icon-container";
 import IconResize from "../icons/icon-resize/icon-resize";
+import getBoundingClientRect from "./helpers/get-bounding-client-rect";
 
 import "./image-comparison.css";
 
@@ -20,7 +21,6 @@ class ImageComparison extends Component {
     separatorPosition: shape({
       left: number
     }).isRequired,
-    Ref: func.isRequired,
     separatorRef: func.isRequired,
     onMouseEnter: func.isRequired,
     onMouseLeave: func.isRequired,
@@ -30,17 +30,19 @@ class ImageComparison extends Component {
     onTouchStart: func.isRequired,
     onTouchEnd: func.isRequired,
     onTouchMove: func.isRequired,
-    onTouchCancel: func.isRequired
+    onTouchCancel: func.isRequired,
+    onGeometryChange: func.isRequired
   };
 
   static defaultProps = {};
+
+  imageComparisonElement = null;
 
   render() {
     const {
       before,
       after,
       separatorPosition,
-      Ref,
       separatorRef,
       onMouseEnter,
       onMouseLeave,
@@ -65,7 +67,7 @@ class ImageComparison extends Component {
         onMouseLeave={onMouseLeave}
         onTouchMove={onTouchMove}
         onTouchCancel={onTouchCancel}
-        ref={Ref}
+        ref={this.setImageComparisonRef}
       >
         <div className="ImageComparison-images">
           <div className="ImageComparison-beforeImageHolder">
@@ -115,22 +117,6 @@ class ImageComparison extends Component {
     );
   }
 
-  setBeforeRef = element => {
-    if (!element) {
-      return;
-    }
-
-    this.beforeElement = element;
-  };
-
-  setAfterRef = element => {
-    if (!element) {
-      return;
-    }
-
-    this.beforeElement = element;
-  };
-
   renderInfoPoints(place) {
     const { children } = this.props;
 
@@ -141,6 +127,32 @@ class ImageComparison extends Component {
       return <Fragment key={index}>{React.cloneElement(element, {})}</Fragment>;
     });
   }
+
+  componentDidMount() {
+    window.addEventListener("resize", this.handleWindowResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleWindowResize);
+  }
+
+  setImageComparisonRef = element => {
+    const { onGeometryChange } = this.props;
+
+    if (!element) {
+      return;
+    }
+
+    this.imageComparisonElement = element;
+
+    onGeometryChange(getBoundingClientRect(element));
+  };
+
+  handleWindowResize = () => {
+    const { onGeometryChange } = this.props;
+
+    onGeometryChange(getBoundingClientRect(this.imageComparisonElement));
+  };
 }
 
 export default ImageComparison;
