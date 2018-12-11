@@ -273,6 +273,10 @@ class ImageComparisonContainer extends Component {
     this.setTempSeparatorLeft(null);
   }
 
+  pointerUp() {
+    this.disableSeparatorMoving();
+  }
+
   /* ↑ POINTERS ↑ */
 
   /**
@@ -293,15 +297,15 @@ class ImageComparisonContainer extends Component {
   /**--------------------------------------- */
 
   handleMouseUp = () => {
-    this.disableSeparatorMoving();
+    this.pointerUp();
   };
 
   handleTouchEnd = () => {
-    this.disableSeparatorMoving();
+    this.pointerUp();
   };
 
   handleTouchCancel = () => {
-    this.disableSeparatorMoving();
+    this.pointerUp();
   };
 
   /**--------------------------------------- */
@@ -339,6 +343,8 @@ class ImageComparisonContainer extends Component {
       this.setDelayTimer();
     }
   };
+
+  /**--------------------------------------- */
 
   handleGeometryChange = geometry => {
     this.setElementGeometry(geometry);
