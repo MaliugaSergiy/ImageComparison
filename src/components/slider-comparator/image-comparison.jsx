@@ -52,6 +52,10 @@ class ImageComparison extends Component {
       onMouseDown
     } = this.props;
 
+    console.log(
+      "​ImageComparison -> render -> separatorPosition",
+      separatorPosition
+    );
     const percentLeftPosition = `${separatorPosition.left * 100}%`;
     const imageTransform = `${(1 - separatorPosition.left) * 100}%`;
 

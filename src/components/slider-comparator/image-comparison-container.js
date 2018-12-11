@@ -14,7 +14,6 @@ const SEPARATOR_GAP = 100;
 class ImageComparisonContainer extends Component {
   state = {
     separatorLeft: this.props.initialSeparatorLeftPosition,
-    tempSeparatorLeft: null,
     geometry: {},
     pointX: null
   };
@@ -166,14 +165,6 @@ class ImageComparisonContainer extends Component {
     this.separatorDelayTimer = null;
   };
 
-  setTempSeparatorLeft(tempSeparatorLeft) {
-    if (this.props.increaseByHover) {
-      this.setState({
-        tempSeparatorLeft
-      });
-    }
-  }
-
   setSeparatorPosition(separatorLeft) {
     this.setState({
       separatorLeft
@@ -212,14 +203,16 @@ class ImageComparisonContainer extends Component {
     const { separatorLeft, pointX } = this.state;
 
     if (pointX === "left") {
+      const offsetLeft = separatorLeft + SELECTION_OFFSET;
       return {
-        left: separatorLeft + SELECTION_OFFSET
+        left: offsetLeft < 1 ? offsetLeft : 1
       };
     }
 
     if (pointX === "right") {
+      const offsetLeft = separatorLeft - SELECTION_OFFSET;
       return {
-        left: separatorLeft - SELECTION_OFFSET
+        left: offsetLeft > 0 ? offsetLeft : 0
       };
     }
 
@@ -243,17 +236,6 @@ class ImageComparisonContainer extends Component {
 
     return percentSeparatorPosition;
   };
-
-  getTempSeparatorLeft(modifiedSeparatorLeft) {
-    if (modifiedSeparatorLeft > 1) {
-      return 1;
-    }
-    if (modifiedSeparatorLeft < 0) {
-      return 0;
-    }
-
-    return modifiedSeparatorLeft;
-  }
 
   /**
    * UTILITIES
