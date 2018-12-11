@@ -54,6 +54,7 @@ class ImageComparisonContainer extends Component {
         separatorPosition={this.getSeparatorLeftProperty()}
         separatorRef={this.setSeparatorElementRef}
         onMouseMove={this.handleMouseMove}
+        onMouseDown={this.handleMouseDown}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         onTouchMove={this.handleTouchMove}
@@ -81,12 +82,12 @@ class ImageComparisonContainer extends Component {
    **/
 
   componentDidMount() {
-    window.addEventListener("mousedown", this.handleMouseDown);
+    // window.addEventListener("mousedown", this.handleMouseDown);
     window.addEventListener("mouseup", this.handleMouseUp);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("mousedown", this.handleMouseDown);
+    // window.removeEventListener("mousedown", this.handleMouseDown);
     window.removeEventListener("mouseup", this.handleMouseUp);
   }
 
@@ -238,12 +239,12 @@ class ImageComparisonContainer extends Component {
     }
   };
 
-  getIsImageComparison(clientX, clientY) {
-    const { top, bottom, left, right } = this.state.elementGeometry;
-    return (
-      clientX >= left && clientX <= right && clientY >= top && clientY <= bottom
-    );
-  }
+  // getIsImageComparison(clientX, clientY) {
+  //   const { top, bottom, left, right } = this.state.elementGeometry;
+  //   return (
+  //     clientX >= left && clientX <= right && clientY >= top && clientY <= bottom
+  //   );
+  // }
 
   /**
    * ↓ POINTERS ↓
@@ -261,9 +262,9 @@ class ImageComparisonContainer extends Component {
     const separatorLeftPosition = this.getSeparatorLeftPosition(clientX);
     const { clickableImage } = this.props;
 
-    if (!this.getIsImageComparison(clientX, clientY)) {
-      return;
-    }
+    // if (!this.getIsImageComparison(clientX, clientY)) {
+    //   return;
+    // }
 
     if (!clickableImage) {
       return;
@@ -364,9 +365,7 @@ export default ImageComparisonContainer;
 //     clientX <
 //     elementGeometry.left + separatorLeft * elementGeometry.width
 //   ) {
-//     this.setState({
-//       touched: "left"
-//     });
+//     this.touchedPosition = "left";
 //     return;
 //   }
 
@@ -374,9 +373,7 @@ export default ImageComparisonContainer;
 //     clientX >
 //     elementGeometry.left + separatorLeft * elementGeometry.width
 //   ) {
-//     this.setState({
-//       touched: "right"
-//     });
+//     this.touchedPosition = "right";
 //     return;
 //   }
 // }

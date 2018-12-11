@@ -48,7 +48,8 @@ class ImageComparison extends Component {
       onTouchStart,
       onTouchEnd,
       onTouchMove,
-      onTouchCancel
+      onTouchCancel,
+      onMouseDown
     } = this.props;
 
     const percentLeftPosition = `${separatorPosition.left * 100}%`;
@@ -58,6 +59,7 @@ class ImageComparison extends Component {
       <div
         className="ImageComparison"
         onMouseMove={onMouseMove}
+        onMouseDown={onMouseDown}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         onTouchMove={onTouchMove}
