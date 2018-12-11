@@ -8,7 +8,7 @@ const { string, oneOf, number, shape, arrayOf, bool } = PropTypes;
 
 const INCREASE_AMOUNT = 0.02;
 
-const SEPARATOR_GAP = 16;
+const SEPARATOR_GAP = 100;
 
 class ImageComparisonContainer extends Component {
   state = {
@@ -52,10 +52,8 @@ class ImageComparisonContainer extends Component {
         before={before}
         after={after}
         separatorPosition={this.getSeparatorLeftProperty()}
-        Ref={this.setImageComparisonRef}
         separatorRef={this.setSeparatorElementRef}
         onMouseDown={this.handleMouseDown}
-        onSeparatorMouseDown={this.handleSeparatorMouseDown}
         onMouseMove={this.handleMouseMove}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
@@ -84,11 +82,11 @@ class ImageComparisonContainer extends Component {
    */
 
   componentDidMount() {
-    window.addEventListener("mouseup", this.disableSeparatorMoving);
+    window.addEventListener("mouseup", this.handleMouseUp);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("mouseup", this.disableSeparatorMoving);
+    window.removeEventListener("mouseup", this.handleMouseUp);
   }
 
   /**
@@ -235,7 +233,33 @@ class ImageComparisonContainer extends Component {
     }
   };
 
+  /**
+   * POINTERS
+   */
+
   /** HANDLERS */
+
+  handleMouseDown = e => {
+    const { clientX } = e;
+    const separatorLeftPosition = this.getSeparatorLeftPosition(clientX);
+    const { clickableImage } = this.props;
+    e.preventDefault();
+
+    if (!clickableImage) {
+      return;
+    }
+    this.enableSeparatorMoving();
+    this.setSeparatorPosition(separatorLeftPosition);
+    this.setTempSeparatorLeft(null);
+  };
+
+  handleMouseUp = () => {
+    this.disableSeparatorMoving();
+  };
+
+  handleTouchStart = () => {
+    this.enableSeparatorMoving();
+  };
 
   handleMouseEnter = () => {
     const { setInitialSeparatorLeftPositionDelay } = this.props;
@@ -259,18 +283,6 @@ class ImageComparisonContainer extends Component {
     this.disableSeparatorMoving();
   };
 
-  handleMouseDown = ({ clientX }) => {
-    const separatorLeftPosition = this.getSeparatorLeftPosition(clientX);
-    const { clickableImage } = this.props;
-
-    if (!clickableImage) {
-      return;
-    }
-
-    this.setSeparatorPosition(separatorLeftPosition);
-    this.setTempSeparatorLeft(null);
-  };
-
   handleMouseMove = ({ clientX }) => {
     const separatorLeftPosition = this.getSeparatorLeftPosition(clientX);
 
@@ -290,15 +302,6 @@ class ImageComparisonContainer extends Component {
     if (this.state.isSeparatorMoving) {
       this.setSeparatorPosition(separatorLeftPosition);
     }
-  };
-
-  handleSeparatorMouseDown = e => {
-    e.preventDefault();
-    this.enableSeparatorMoving();
-  };
-
-  handleTouchStart = () => {
-    this.enableSeparatorMoving();
   };
 
   handleTouchEnd = () => {
