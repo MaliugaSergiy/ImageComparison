@@ -192,12 +192,12 @@ class ImageComparisonContainer extends Component {
 
   isPointerOverLeft(cursorPosition, startPoint, endPoint, gap) {
     const offsetEndPoint = endPoint - gap;
-    return isInRange(cursorPosition, startPoint, offsetEndPoint);
+    return isInRange(cursorPosition, [startPoint, offsetEndPoint]);
   }
 
   isPointerOverRight(cursorPosition, startPoint, endPoint, gap) {
     const offsetStartPoint = startPoint + gap;
-    return isInRange(cursorPosition, offsetStartPoint, endPoint);
+    return isInRange(cursorPosition, [offsetStartPoint, endPoint]);
   }
 
   getSeparatorPosition() {
