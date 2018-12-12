@@ -6,6 +6,9 @@ import SliderComparatorContainer from "./components/slider-comparator/image-comp
 
 import Container from "./components/container/container";
 
+import leftImage from "./assets/images/left_images.jpg";
+import rightImage from "./assets/images/right_images.jpg";
+
 const infoPoints = [
   {
     title: "Автоматическая система открытия/закрытия",
@@ -37,8 +40,8 @@ class App extends Component {
         <Container>
           <SliderComparatorContainer
             clickableImage={true}
-            before="https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg"
-            after="https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg"
+            before={leftImage}
+            after={rightImage}
             infoPoints={infoPoints}
             initialSeparatorLeftPosition={0.57}
             increaseByHover={true}
