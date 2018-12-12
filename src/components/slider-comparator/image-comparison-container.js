@@ -42,9 +42,19 @@ class ImageComparisonContainer extends Component {
     increaseByHover: false
   };
 
+  /**
+   * ↓ REFs ↓
+   **/
   separatorElement = null;
   separatorDelayTimer = null;
+  /** ↑ REFs ↑ */
+
+  /**
+   * ↓ FLAGS ↓
+   **/
   isSeparatorMoving = false;
+  isTouched = false;
+  /** ↑ FLAGS ↑ */
 
   render() {
     const { left, right, infoPoints } = this.props;
@@ -187,6 +197,10 @@ class ImageComparisonContainer extends Component {
     });
   }
 
+  setTouched() {
+    this.isTouched = true;
+  }
+
   /**
    * get-s
    **/
@@ -202,14 +216,14 @@ class ImageComparisonContainer extends Component {
   }
 
   getSeparatorPosition(separatorLeft, pointX) {
-    if (pointX === "left") {
+    if (pointX === "left" && !this.isTouched) {
       const offsetLeft = separatorLeft + SELECTION_OFFSET;
       return {
         left: offsetLeft < 1 ? offsetLeft : 1
       };
     }
 
-    if (pointX === "right") {
+    if (pointX === "right" && !this.isTouched) {
       const offsetLeft = separatorLeft - SELECTION_OFFSET;
       return {
         left: offsetLeft > 0 ? offsetLeft : 0
@@ -295,6 +309,7 @@ class ImageComparisonContainer extends Component {
 
     this.enableSeparatorMoving();
     this.setSeparatorPosition(separatorLeftPosition);
+    this.setTouched();
   }
 
   pointerUp() {
@@ -304,7 +319,7 @@ class ImageComparisonContainer extends Component {
   /* ↑ POINTERS ↑ */
 
   /**
-   * HANDLERS
+   * ↓ HANDLERS ↓
    * */
 
   handleMouseDown = e => {
