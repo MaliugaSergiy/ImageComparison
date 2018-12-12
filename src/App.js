@@ -11,21 +11,21 @@ import rightImage from "./assets/images/right_images.jpg";
 
 const infoPoints = [
   {
-    title: "Автоматическая система открытия/закрытия",
+    title: "left Автоматическая система открытия/закрытия",
     description:
       "Можете управлять всей солнцезащитной системой со своего смартфона или с пульта",
     position: { top: 22, left: 50 },
-    place: "after"
+    place: "left"
   },
   {
-    title: "Автоматическая система открытия/закрытия",
+    title: "right Автоматическая система открытия/закрытия",
     description:
       "Можете управлять всей солнцезащитной системой со своего смартфона или с пульта",
     position: { top: 72, left: 70 },
-    place: "before"
+    place: "right"
   },
   {
-    title: "Автоматическая система открытия/закрытия",
+    title: "both Автоматическая система открытия/закрытия",
     description:
       "Можете управлять всей солнцезащитной системой со своего смартфона или с пульта",
     position: { top: 85, left: 15 },
@@ -40,8 +40,8 @@ class App extends Component {
         <Container>
           <SliderComparatorContainer
             clickableImage={true}
-            before={leftImage}
-            after={rightImage}
+            right={rightImage}
+            left={leftImage}
             infoPoints={infoPoints}
             initialSeparatorLeftPosition={0.57}
             increaseByHover={true}

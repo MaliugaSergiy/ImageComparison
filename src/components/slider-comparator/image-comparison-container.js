@@ -20,8 +20,8 @@ class ImageComparisonContainer extends Component {
   };
 
   static propTypes = {
-    before: string.isRequired,
-    after: string.isRequired,
+    left: string.isRequired,
+    right: string.isRequired,
     clickableImage: bool,
     increaseByHover: bool,
     initialSeparatorLeftPosition: number,
@@ -32,7 +32,7 @@ class ImageComparisonContainer extends Component {
           top: number,
           left: number
         }),
-        place: oneOf(["before", "after", "both"])
+        place: oneOf(["left", "right", "both"])
       })
     )
   };
@@ -47,11 +47,11 @@ class ImageComparisonContainer extends Component {
   isSeparatorMoving = false;
 
   render() {
-    const { before, after, infoPoints } = this.props;
+    const { left, right, infoPoints } = this.props;
     return (
       <ImageComparison
-        before={before}
-        after={after}
+        left={left}
+        right={right}
         separatorPosition={this.getSeparatorPosition()}
         separatorRef={this.setSeparatorElementRef}
         onMouseMove={this.handleMouseMove}

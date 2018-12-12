@@ -10,14 +10,14 @@ import "./image-comparison.css";
 const { string, func, number, shape } = PropTypes;
 
 const PLACES = {
-  BEFORE: "before",
-  AFTER: "after",
+  LEFT: "left",
+  RIGHT: "right",
   BOTH: "both"
 };
 class ImageComparison extends Component {
   static propTypes = {
-    before: string.isRequired,
-    after: string.isRequired,
+    left: string.isRequired,
+    right: string.isRequired,
     separatorPosition: shape({
       left: number
     }).isRequired,
@@ -38,8 +38,8 @@ class ImageComparison extends Component {
 
   render() {
     const {
-      before,
-      after,
+      left,
+      right,
       separatorPosition,
       separatorRef,
       // onMouseEnter,
@@ -69,14 +69,14 @@ class ImageComparison extends Component {
         ref={this.setImageComparisonRef}
       >
         <div className="ImageComparison-images">
-          <div className="ImageComparison-beforeImageHolder">
-            <img className="ImageComparison-image" src={before} alt="" />
+          <div className="ImageComparison-rightImageHolder">
+            <img className="ImageComparison-image" src={right} alt="" />
 
-            {this.renderInfoPoints(PLACES.BEFORE)}
+            {this.renderInfoPoints(PLACES.RIGHT)}
           </div>
 
           <div
-            className="ImageComparison-afterImageHolder"
+            className="ImageComparison-leftImageHolder"
             style={{
               transform: `translateX(-${imageTransform})`
             }}
@@ -87,9 +87,9 @@ class ImageComparison extends Component {
                 transform: `translateX(${imageTransform})`
               }}
             >
-              <img className="ImageComparison-image" src={after} alt="" />
+              <img className="ImageComparison-image" src={left} alt="" />
 
-              {this.renderInfoPoints(PLACES.AFTER)}
+              {this.renderInfoPoints(PLACES.LEFT)}
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ class InfoPoint extends Component {
       top: number,
       left: number
     }),
-    place: oneOf(["before", "after", "both"])
+    place: oneOf(["left", "right", "both"])
   };
   render() {
     const { title, position, children } = this.props;
