@@ -16,6 +16,7 @@ class ImageComparisonContainer extends Component {
   state = {
     separatorLeft: this.props.initialSeparatorLeftPosition,
     geometry: {},
+    /** selected image  */
     pointX: null
   };
 
@@ -142,26 +143,25 @@ class ImageComparisonContainer extends Component {
     const rightBorder = geometry.left + geometry.width;
     const separatorLeftPosition = leftBorder + separatorLeft * geometry.width;
 
-    if (
-      this.isPointerOverLeft(
-        clientX,
-        leftBorder,
-        separatorLeftPosition,
-        SEPARATOR_GAP
-      )
-    ) {
+    const isPointerOverLeft = this.isPointerOverLeft(
+      clientX,
+      leftBorder,
+      separatorLeftPosition,
+      SEPARATOR_GAP
+    );
+    const isPointerOverRight = this.isPointerOverRight(
+      clientX,
+      separatorLeftPosition,
+      rightBorder,
+      SEPARATOR_GAP
+    );
+
+    if (isPointerOverLeft) {
       this.selectLeft();
       return;
     }
 
-    if (
-      this.isPointerOverRight(
-        clientX,
-        separatorLeftPosition,
-        rightBorder,
-        SEPARATOR_GAP
-      )
-    ) {
+    if (isPointerOverRight) {
       this.selectRight();
       return;
     }
