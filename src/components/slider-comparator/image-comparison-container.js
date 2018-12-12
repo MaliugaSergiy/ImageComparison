@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import InfoPoint from "../info-point/info-point.jsx";
 import ImageComparison from "./image-comparison.jsx";
 import isInRange from "./helpers/is-in-range";
+import isLeftButtonClicked from "./helpers/is-left-button-clicked";
 
 const { string, oneOf, number, shape, arrayOf, bool } = PropTypes;
 
@@ -301,7 +302,13 @@ class ImageComparisonContainer extends Component {
 
   handleMouseDown = e => {
     const { clientX } = e;
+
+    if (!isLeftButtonClicked(e)) {
+      return;
+    }
+
     e.preventDefault();
+
     this.pointerDown(clientX);
   };
 
