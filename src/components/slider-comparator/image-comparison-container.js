@@ -59,13 +59,17 @@ class ImageComparisonContainer extends Component {
   /** ↑ FLAGS ↑ */
 
   render() {
-    const { left, right, infoPoints } = this.props;
+    const { left, right, infoPoints, increaseByHover } = this.props;
     const { separatorLeft, pointX } = this.state;
     return (
       <ImageComparison
         left={left}
         right={right}
-        separatorPosition={this.getSeparatorPosition(separatorLeft, pointX)}
+        separatorPosition={this.getSeparatorPosition(
+          separatorLeft,
+          pointX,
+          increaseByHover
+        )}
         separatorRef={this.setSeparatorElementRef}
         onMouseMove={this.handleMouseMove}
         onMouseDown={this.handleMouseDown}
@@ -220,15 +224,15 @@ class ImageComparisonContainer extends Component {
     return isInRange(cursorPosition, [offsetStartPoint, endPoint]);
   }
 
-  getSeparatorPosition(separatorLeft, pointX) {
-    if (pointX === "left" && !this.isTouched) {
+  getSeparatorPosition(separatorLeft, pointX, increaseByHover) {
+    if (pointX === "left" && !this.isTouched && increaseByHover) {
       const offsetLeft = separatorLeft + SELECTION_OFFSET;
       return {
         left: offsetLeft < 1 ? offsetLeft : 1
       };
     }
 
-    if (pointX === "right" && !this.isTouched) {
+    if (pointX === "right" && !this.isTouched && increaseByHover) {
       const offsetLeft = separatorLeft - SELECTION_OFFSET;
       return {
         left: offsetLeft > 0 ? offsetLeft : 0
@@ -336,11 +340,7 @@ class ImageComparisonContainer extends Component {
   };
 
   handleMouseMove = ({ clientX }) => {
-    const { increaseByHover } = this.props;
     this.pointerMove(clientX);
-
-    if (increaseByHover) {
-    }
 
     this.setPointX(clientX);
   };
