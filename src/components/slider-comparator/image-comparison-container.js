@@ -9,8 +9,8 @@ import isLeftButtonClicked from "./helpers/is-left-button-clicked";
 const { string, oneOf, number, shape, arrayOf, bool } = PropTypes;
 
 const SELECTION_OFFSET = 0.02;
-
 const SEPARATOR_GAP = 100;
+const SET_INITIAL_TIME_INTERVAL = 6000;
 
 class ImageComparisonContainer extends Component {
   state = {
@@ -46,12 +46,13 @@ class ImageComparisonContainer extends Component {
    * ↓ REFs ↓
    **/
   separatorElement = null;
-  separatorDelayTimer = null;
+
   /** ↑ REFs ↑ */
 
   /**
    * ↓ FLAGS ↓
    **/
+  initialOptionTimer = null;
   isSeparatorMoving = false;
   isTouched = false;
   /** ↑ FLAGS ↑ */
@@ -201,6 +202,10 @@ class ImageComparisonContainer extends Component {
     this.isTouched = true;
   }
 
+  resetTouched() {
+    this.isTouched = false;
+  }
+
   /**
    * get-s
    **/
@@ -250,30 +255,21 @@ class ImageComparisonContainer extends Component {
   };
 
   /**
-   * UTILITIES
+   * ↓ TIMERS ↓
    **/
 
-  clearDelayTimer = () => {
-    if (this.separatorDelayTimer) {
-      clearTimeout(this.separatorDelayTimer);
-      this.separatorDelayTimer = null;
-    }
+  clearInitialOptionsTimer = () => {
+    clearTimeout(this.initialOptionTimer);
   };
 
-  setDelayTimer = () => {
-    const {
-      setInitialSeparatorLeftPositionDelay,
-      initialSeparatorLeftPosition
-    } = this.props;
-    const { separatorLeft } = this.state;
-
-    if (initialSeparatorLeftPosition !== separatorLeft) {
-      this.separatorDelayTimer = setTimeout(
-        this.setInitialSeparatorLeftPosition,
-        setInitialSeparatorLeftPositionDelay
-      );
-    }
+  setInitialOptionsTimer = SET_INITIAL_TIME_INTERVAL => {
+    this.initialOptionTimer = setTimeout(() => {
+      this.setInitialSeparatorLeftPosition();
+      this.resetTouched();
+    }, SET_INITIAL_TIME_INTERVAL);
   };
+
+  /* ↑ TIMERS ↑ */
 
   /**
    * ↓ POINTERS ↓
@@ -306,10 +302,11 @@ class ImageComparisonContainer extends Component {
     if (!clickableImage) {
       return;
     }
-
+    this.clearInitialOptionsTimer();
     this.enableSeparatorMoving();
     this.setSeparatorPosition(separatorLeftPosition);
     this.setTouched();
+    this.setInitialOptionsTimer(SET_INITIAL_TIME_INTERVAL);
   }
 
   pointerUp() {
