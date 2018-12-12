@@ -48,11 +48,12 @@ class ImageComparisonContainer extends Component {
 
   render() {
     const { left, right, infoPoints } = this.props;
+    const { separatorLeft, pointX } = this.state;
     return (
       <ImageComparison
         left={left}
         right={right}
-        separatorPosition={this.getSeparatorPosition()}
+        separatorPosition={this.getSeparatorPosition(separatorLeft, pointX)}
         separatorRef={this.setSeparatorElementRef}
         onMouseMove={this.handleMouseMove}
         onMouseDown={this.handleMouseDown}
@@ -200,9 +201,7 @@ class ImageComparisonContainer extends Component {
     return isInRange(cursorPosition, [offsetStartPoint, endPoint]);
   }
 
-  getSeparatorPosition() {
-    const { separatorLeft, pointX } = this.state;
-
+  getSeparatorPosition(separatorLeft, pointX) {
     if (pointX === "left") {
       const offsetLeft = separatorLeft + SELECTION_OFFSET;
       return {
@@ -222,9 +221,7 @@ class ImageComparisonContainer extends Component {
     };
   }
 
-  getSeparatorLeftPosition = clientX => {
-    const { width, left } = this.state.geometry;
-
+  getSeparatorLeftPosition = (clientX, width, left) => {
     const separatorPosition = clientX - left;
     const percentSeparatorPosition = separatorPosition / width;
 
@@ -269,7 +266,12 @@ class ImageComparisonContainer extends Component {
    * */
 
   pointerMove(clientX) {
-    const separatorLeftPosition = this.getSeparatorLeftPosition(clientX);
+    const { width, left } = this.state.geometry;
+    const separatorLeftPosition = this.getSeparatorLeftPosition(
+      clientX,
+      width,
+      left
+    );
 
     if (!this.isSeparatorMoving) {
       return;
@@ -279,7 +281,12 @@ class ImageComparisonContainer extends Component {
   }
 
   pointerDown(clientX) {
-    const separatorLeftPosition = this.getSeparatorLeftPosition(clientX);
+    const { width, left } = this.state.geometry;
+    const separatorLeftPosition = this.getSeparatorLeftPosition(
+      clientX,
+      width,
+      left
+    );
     const { clickableImage } = this.props;
 
     if (!clickableImage) {
