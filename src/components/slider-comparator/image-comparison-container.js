@@ -17,7 +17,7 @@ class ImageComparisonContainer extends Component {
     separatorLeft: this.props.initialSeparatorLeftPosition,
     geometry: {},
     /** selected image  */
-    pointX: null,
+    selectedSide: null,
     isSeparatorMoving: false
   };
 
@@ -60,14 +60,14 @@ class ImageComparisonContainer extends Component {
 
   render() {
     const { left, right, infoPoints, increaseByHover } = this.props;
-    const { separatorLeft, pointX, isSeparatorMoving } = this.state;
+    const { separatorLeft, selectedSide, isSeparatorMoving } = this.state;
     return (
       <ImageComparison
         left={left}
         right={right}
         separatorPosition={this.getSeparatorPosition(
           separatorLeft,
-          pointX,
+          selectedSide,
           increaseByHover
         )}
         isSeparatorMoving={isSeparatorMoving}
@@ -128,23 +128,23 @@ class ImageComparisonContainer extends Component {
 
   selectLeft() {
     this.setState({
-      pointX: "left"
+      selectedSide: "left"
     });
   }
 
   selectRight() {
     this.setState({
-      pointX: "right"
+      selectedSide: "right"
     });
   }
 
   resetSelected() {
     this.setState({
-      pointX: null
+      selectedSide: null
     });
   }
 
-  setPointX(clientX, clientY) {
+  setSelectedSide(clientX, clientY) {
     const { separatorLeft, geometry } = this.state;
 
     const leftBorder = geometry.left;
@@ -261,15 +261,15 @@ class ImageComparisonContainer extends Component {
     );
   }
 
-  getSeparatorPosition(separatorLeft, pointX, increaseByHover) {
-    if (pointX === "left" && !this.isTouched && increaseByHover) {
+  getSeparatorPosition(separatorLeft, selectedSide, increaseByHover) {
+    if (selectedSide === "left" && !this.isTouched && increaseByHover) {
       const offsetLeft = separatorLeft + SELECTION_OFFSET;
       return {
         left: offsetLeft < 1 ? offsetLeft : 1
       };
     }
 
-    if (pointX === "right" && !this.isTouched && increaseByHover) {
+    if (selectedSide === "right" && !this.isTouched && increaseByHover) {
       const offsetLeft = separatorLeft - SELECTION_OFFSET;
       return {
         left: offsetLeft > 0 ? offsetLeft : 0
@@ -377,7 +377,7 @@ class ImageComparisonContainer extends Component {
   handleMouseMove = ({ clientX, clientY }) => {
     this.pointerMove(clientX);
 
-    this.setPointX(clientX, clientY);
+    this.setSelectedSide(clientX, clientY);
   };
 
   handleMouseLeave = () => {
