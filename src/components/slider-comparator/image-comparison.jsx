@@ -44,7 +44,7 @@ class ImageComparison extends Component {
       separatorPosition,
       separatorRef,
       // onMouseEnter,
-      // onMouseLeave,
+      onMouseLeave,
       isSeparatorMoving,
       onTouchStart,
       onTouchEnd,
@@ -53,18 +53,22 @@ class ImageComparison extends Component {
       onMouseDown
     } = this.props;
 
+    console.log(separatorPosition);
+
     const percentLeftPosition = `${separatorPosition.left * 100}%`;
     const imageTransform = `${(1 - separatorPosition.left) * 100}%`;
 
     return (
       <div
         className={cn("ImageComparison", {
-          "ImageComparison--isSeparatorMoving": isSeparatorMoving
+          "ImageComparison--isSeparatorMoving": isSeparatorMoving,
+          "ImageComparison--separatorStart": separatorPosition.left === 0,
+          "ImageComparison--separatorEnd": separatorPosition.left === 1
         })}
         // onMouseMove={onMouseMove}
         onMouseDown={onMouseDown}
         // onMouseEnter={onMouseEnter}
-        // onMouseLeave={onMouseLeave}
+        onMouseLeave={onMouseLeave}
         onTouchMove={onTouchMove}
         onTouchCancel={onTouchCancel}
         onTouchStart={onTouchStart}

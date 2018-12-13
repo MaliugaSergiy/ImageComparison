@@ -75,7 +75,7 @@ class ImageComparisonContainer extends Component {
         onMouseMove={this.handleMouseMove}
         onMouseDown={this.handleMouseDown}
         // onMouseEnter={this.handleMouseEnter}
-        // onMouseLeave={this.handleMouseLeave}
+        onMouseLeave={this.handleMouseLeave}
         onTouchMove={this.handleTouchMove}
         onTouchCancel={this.handleTouchCancel}
         onTouchStart={this.handleTouchStart}
@@ -378,6 +378,10 @@ class ImageComparisonContainer extends Component {
     this.pointerMove(clientX);
 
     this.setPointX(clientX, clientY);
+  };
+
+  handleMouseLeave = () => {
+    this.resetSelected();
   };
 
   /**--------------------------------------- */

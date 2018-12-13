@@ -93,7 +93,8 @@
   transition: width 0.2s ease-out, height 0.2s ease-out,
     box-shadow 0.2s ease-out 0.1s;
 }
-.ImageComparison-separator:active .ImageComparison-separatorThumb {
+
+.ImageComparison--isSeparatorMoving .ImageComparison-separatorThumb {
   width: 56px;
   height: 56px;
   box-shadow: 0px 0px 0px 13px rgba(255, 255, 255, 0.4);

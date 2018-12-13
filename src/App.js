@@ -38,6 +38,13 @@ class App extends Component {
     return (
       <div className="App">
         <Container>
+          {/* <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br /> */}
           <SliderComparatorContainer
             clickableImage={true}
             right={rightImage}
