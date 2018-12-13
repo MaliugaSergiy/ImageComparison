@@ -102,6 +102,30 @@
     box-shadow 0.2s ease-out 0.1s;
 }
 
+.ImageComparison-separatorIcons {
+  display: flex;
+}
+
+.ImageComparison-separatorIconLeft {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+.ImageComparison--separatorStart .ImageComparison-separatorIconLeft {
+  display: none;
+}
+
+.ImageComparison-separatorIconRight {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+.ImageComparison--separatorEnd .ImageComparison-separatorIconRight {
+  display: none;
+}
+
 .ImageComparison-infoPoints {
   overflow: hidden;
   position: absolute;

@@ -4,6 +4,8 @@ import cn from "classnames";
 
 import IconContainer from "../icon-container/icon-container";
 import IconResize from "../icons/icon-resize/icon-resize";
+import IconArrowLeft from "../icons/icon-angle-arrow-left/icon-angle-arrow-left";
+import IconArrowRight from "../icons/icon-angle-arrow-right/icon-angle-arrow-right";
 import toObject from "./helpers/toObject";
 
 import "./image-comparison.css";
@@ -122,9 +124,18 @@ class ImageComparison extends Component {
         >
           <div className="ImageComparison-separatorLine" ref={separatorRef}>
             <div className="ImageComparison-separatorThumb">
-              <IconContainer>
-                <IconResize />
-              </IconContainer>
+              <div className="ImageComparison-separatorIcons">
+                <div className="ImageComparison-separatorIconLeft">
+                  <IconArrowLeft />
+                </div>
+                <div className="ImageComparison-separatorIconRight">
+                  <IconArrowRight />
+                </div>
+              </div>
+
+              {/* <IconContainer> */}
+              {/* <IconResize /> */}
+              {/* </IconContainer> */}
             </div>
           </div>
         </div>
