@@ -72,38 +72,66 @@
 
 .ImageComparison-separatorThumb {
   position: absolute;
-  background-color: #fdcd54;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   transform: translate(-50%, -50%);
   top: 50%;
-  box-shadow: 0px 0px 0px 8px rgba(255, 255, 255, 0.4);
-  transition: width 0.2s ease-out, height 0.2s ease-out,
-    box-shadow 0.2s ease-out;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.ImageComparison-separator:hover .ImageComparison-separatorThumb {
-  width: 56px;
-  height: 56px;
-  box-shadow: 0px 0px 0px 13px rgba(255, 255, 255, 0.4);
-  transition: width 0.2s ease-out, height 0.2s ease-out,
-    box-shadow 0.2s ease-out 0.1s;
+.ImageComparison-separatorThumb::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fdcd54;
+  transition: transform 0.2s ease-out;
+  z-index: 0;
 }
 
-.ImageComparison--isSeparatorMoving .ImageComparison-separatorThumb {
-  width: 56px;
-  height: 56px;
-  box-shadow: 0px 0px 0px 13px rgba(255, 255, 255, 0.4);
-  transition: width 0.2s ease-out, height 0.2s ease-out,
-    box-shadow 0.2s ease-out 0.1s;
+.ImageComparison-separator:hover .ImageComparison-separatorThumb::after {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.ImageComparison--isSeparatorMoving .ImageComparison-separatorThumb::after {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.ImageComparison-separatorThumb::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: rgba(253, 253, 253, 0.5);
+  transition: transform 0.2s ease-out;
+  z-index: 0;
+}
+
+.ImageComparison-separator:hover .ImageComparison-separatorThumb::before {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.ImageComparison--isSeparatorMoving .ImageComparison-separatorThumb::before {
+  transform: translate(-50%, -50%) scale(1.2);
 }
 
 .ImageComparison-separatorIcons {
   display: flex;
+  position: relative;
+  z-index: 1;
 }
 
 .ImageComparison-separatorIconLeft {
