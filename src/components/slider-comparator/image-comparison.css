@@ -1,6 +1,9 @@
 .ImageComparison {
   position: relative;
 }
+.ImageComparison--isSeparatorMoving {
+  cursor: e-resize;
+}
 
 .ImageComparison-images {
   width: 100%;
@@ -21,6 +24,10 @@
   transition: 0.2s ease-out;
 }
 
+.ImageComparison--isSeparatorMoving .ImageComparison-leftImageHolder {
+  transition: none;
+}
+
 .ImageComparison-rightImageHolder {
   width: 100%;
   height: 100%;
@@ -30,6 +37,10 @@
   height: 100%;
   width: 100%;
   transition: 0.2s ease-out;
+}
+
+.ImageComparison--isSeparatorMoving .ImageComparison-imagePositioner {
+  transition: none;
 }
 
 .ImageComparison-image {
@@ -47,6 +58,10 @@
   cursor: e-resize;
   padding: 0 16px;
   transition: 0.2s ease-out;
+}
+
+.ImageComparison--isSeparatorMoving .ImageComparison-separator {
+  transition: none;
 }
 
 .ImageComparison-separatorLine {

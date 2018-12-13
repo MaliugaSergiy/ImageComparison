@@ -17,7 +17,8 @@ class ImageComparisonContainer extends Component {
     separatorLeft: this.props.initialSeparatorLeftPosition,
     geometry: {},
     /** selected image  */
-    pointX: null
+    pointX: null,
+    isSeparatorMoving: false
   };
 
   static propTypes = {
@@ -54,13 +55,12 @@ class ImageComparisonContainer extends Component {
    * ↓ FLAGS ↓
    **/
   initialOptionTimer = null;
-  isSeparatorMoving = false;
   isTouched = false;
   /** ↑ FLAGS ↑ */
 
   render() {
     const { left, right, infoPoints, increaseByHover } = this.props;
-    const { separatorLeft, pointX } = this.state;
+    const { separatorLeft, pointX, isSeparatorMoving } = this.state;
     return (
       <ImageComparison
         left={left}
@@ -70,6 +70,7 @@ class ImageComparisonContainer extends Component {
           pointX,
           increaseByHover
         )}
+        isSeparatorMoving={isSeparatorMoving}
         separatorRef={this.setSeparatorElementRef}
         onMouseMove={this.handleMouseMove}
         onMouseDown={this.handleMouseDown}
@@ -194,12 +195,16 @@ class ImageComparisonContainer extends Component {
 
   disableSeparatorMoving() {
     this.clearInitialOptionsTimer();
-    this.isSeparatorMoving = false;
+    this.setState({
+      isSeparatorMoving: false
+    });
     this.setInitialOptionsTimer(SET_INITIAL_TIME_INTERVAL);
   }
 
   enableSeparatorMoving() {
-    this.isSeparatorMoving = true;
+    this.setState({
+      isSeparatorMoving: true
+    });
   }
 
   setGeometry(geometry) {
@@ -293,7 +298,7 @@ class ImageComparisonContainer extends Component {
       left
     );
 
-    if (!this.isSeparatorMoving) {
+    if (!this.state.isSeparatorMoving) {
       return;
     }
 

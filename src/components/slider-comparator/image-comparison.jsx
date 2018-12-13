@@ -1,5 +1,6 @@
 import React, { Component, Children, Fragment } from "react";
 import PropTypes from "prop-types";
+import cn from "classnames";
 
 import IconContainer from "../icon-container/icon-container";
 import IconResize from "../icons/icon-resize/icon-resize";
@@ -44,7 +45,7 @@ class ImageComparison extends Component {
       separatorRef,
       // onMouseEnter,
       // onMouseLeave,
-      onMouseMove,
+      isSeparatorMoving,
       onTouchStart,
       onTouchEnd,
       onTouchMove,
@@ -57,7 +58,9 @@ class ImageComparison extends Component {
 
     return (
       <div
-        className="ImageComparison"
+        className={cn("ImageComparison", {
+          "ImageComparison--isSeparatorMoving": isSeparatorMoving
+        })}
         // onMouseMove={onMouseMove}
         onMouseDown={onMouseDown}
         // onMouseEnter={onMouseEnter}
