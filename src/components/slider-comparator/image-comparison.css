@@ -18,6 +18,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  transition: 0.2s ease-out;
 }
 
 .ImageComparison-rightImageHolder {
@@ -28,6 +29,7 @@
 .ImageComparison-imagePositioner {
   height: 100%;
   width: 100%;
+  transition: 0.2s ease-out;
 }
 
 .ImageComparison-image {
@@ -44,6 +46,7 @@
   bottom: 0;
   cursor: e-resize;
   padding: 0 16px;
+  transition: 0.2s ease-out;
 }
 
 .ImageComparison-separatorLine {

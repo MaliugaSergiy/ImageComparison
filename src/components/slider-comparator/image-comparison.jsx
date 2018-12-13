@@ -58,7 +58,7 @@ class ImageComparison extends Component {
     return (
       <div
         className="ImageComparison"
-        onMouseMove={onMouseMove}
+        // onMouseMove={onMouseMove}
         onMouseDown={onMouseDown}
         // onMouseEnter={onMouseEnter}
         // onMouseLeave={onMouseLeave}

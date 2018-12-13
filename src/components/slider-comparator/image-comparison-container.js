@@ -8,7 +8,7 @@ import isLeftButtonClicked from "./helpers/is-left-button-clicked";
 
 const { string, oneOf, number, shape, arrayOf, bool } = PropTypes;
 
-const SELECTION_OFFSET = 0.02;
+const SELECTION_OFFSET = 0.1;
 const SEPARATOR_GAP = 100;
 const SET_INITIAL_TIME_INTERVAL = 6000;
 
@@ -101,10 +101,12 @@ class ImageComparisonContainer extends Component {
 
   componentDidMount() {
     window.addEventListener("mouseup", this.handleMouseUp);
+    window.addEventListener("mousemove", this.handleMouseMove);
   }
 
   componentWillUnmount() {
     window.removeEventListener("mouseup", this.handleMouseUp);
+    window.removeEventListener("mousemove", this.handleMouseMove);
   }
 
   /**
