@@ -185,13 +185,17 @@ class ImageComparisonContainer extends Component {
   };
 
   setSeparatorPosition(separatorLeft) {
+    this.clearInitialOptionsTimer();
     this.setState({
       separatorLeft
     });
+    this.setTouched();
   }
 
   disableSeparatorMoving() {
+    this.clearInitialOptionsTimer();
     this.isSeparatorMoving = false;
+    this.setInitialOptionsTimer(SET_INITIAL_TIME_INTERVAL);
   }
 
   enableSeparatorMoving() {
@@ -308,11 +312,9 @@ class ImageComparisonContainer extends Component {
     if (!clickableImage) {
       return;
     }
-    this.clearInitialOptionsTimer();
+
     this.enableSeparatorMoving();
     this.setSeparatorPosition(separatorLeftPosition);
-    this.setTouched();
-    this.setInitialOptionsTimer(SET_INITIAL_TIME_INTERVAL);
   }
 
   pointerUp() {
