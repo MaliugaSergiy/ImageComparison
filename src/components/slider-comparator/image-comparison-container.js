@@ -60,7 +60,13 @@ class ImageComparisonContainer extends Component {
 
   render() {
     const { left, right, infoPoints, increaseByHover } = this.props;
-    const { separatorLeft, selectedSide, isSeparatorMoving } = this.state;
+    const {
+      separatorLeft,
+      selectedSide,
+      isSeparatorMoving,
+      geometry
+    } = this.state;
+
     return (
       <ImageComparison
         left={left}
@@ -72,7 +78,7 @@ class ImageComparisonContainer extends Component {
         )}
         isSeparatorMoving={isSeparatorMoving}
         separatorRef={this.setSeparatorElementRef}
-        onMouseMove={this.handleMouseMove}
+        // onMouseMove={this.handleMouseMove}
         onMouseDown={this.handleMouseDown}
         // onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
@@ -82,16 +88,19 @@ class ImageComparisonContainer extends Component {
         onTouchEnd={this.handleTouchEnd}
         onGeometryChange={this.handleGeometryChange}
       >
-        {infoPoints.map((infoPoint, index) => (
-          <InfoPoint
-            key={index}
-            title={infoPoint.title}
-            position={infoPoint.position}
-            place={infoPoint.place}
-          >
-            {infoPoint.description}
-          </InfoPoint>
-        ))}
+        {infoPoints.map((infoPoint, index) => {
+          return (
+            <InfoPoint
+              key={index}
+              title={infoPoint.title}
+              position={infoPoint.position}
+              place={infoPoint.place}
+              imageComparisonGeometry={geometry}
+            >
+              {infoPoint.description}
+            </InfoPoint>
+          );
+        })}
       </ImageComparison>
     );
   }
@@ -175,6 +184,7 @@ class ImageComparisonContainer extends Component {
       this.selectRight();
       return;
     }
+
     this.resetSelected();
   }
 

@@ -14,21 +14,28 @@ const infoPoints = [
     title: "left Автоматическая система открытия/закрытия",
     description:
       "Можете управлять всей солнцезащитной системой со своего смартфона или с пульта",
-    position: { top: 22, left: 50 },
+    position: { top: 0.22, left: 0.5 },
     place: "left"
   },
   {
     title: "right Автоматическая система открытия/закрытия",
     description:
       "Можете управлять всей солнцезащитной системой со своего смартфона или с пульта",
-    position: { top: 72, left: 70 },
+    position: { top: 0.8, left: 0.9 },
     place: "right"
+  },
+  {
+    title: "right sdsdsd sdsdsdfssdgdfdfgdfgd",
+    description:
+      " dgdfg dfg dg df gdfg dfg dfg dg dg dg dfg dfg dgdfg dgdf gdfg dg dg dfg dfg dgdfg dgdf gdfg",
+    position: { top: 0.8, left: 0.9 },
+    place: "left"
   },
   {
     title: "both Автоматическая система открытия/закрытия",
     description:
       "Можете управлять всей солнцезащитной системой со своего смартфона или с пульта",
-    position: { top: 85, left: 15 },
+    position: { top: 0.85, left: 0.15 },
     place: "both"
   }
 ];

@@ -2,8 +2,6 @@ import React, { Component, Children, Fragment } from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
 
-import IconContainer from "../icon-container/icon-container";
-import IconResize from "../icons/icon-resize/icon-resize";
 import IconArrowLeft from "../icons/icon-angle-arrow-left/icon-angle-arrow-left";
 import IconArrowRight from "../icons/icon-angle-arrow-right/icon-angle-arrow-right";
 import toObject from "./helpers/toObject";
@@ -27,7 +25,7 @@ class ImageComparison extends Component {
     separatorRef: func.isRequired,
     // onMouseEnter: func.isRequired,
     // onMouseLeave: func.isRequired,
-    onMouseMove: func.isRequired,
+    // onMouseMove: func.isRequired,
     onTouchStart: func.isRequired,
     onTouchEnd: func.isRequired,
     onTouchMove: func.isRequired,
@@ -54,8 +52,6 @@ class ImageComparison extends Component {
       onTouchCancel,
       onMouseDown
     } = this.props;
-
-    console.log(separatorPosition);
 
     const percentLeftPosition = `${separatorPosition.left * 100}%`;
     const imageTransform = `${(1 - separatorPosition.left) * 100}%`;
