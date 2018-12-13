@@ -73,7 +73,12 @@ class ImageComparison extends Component {
       >
         <div className="ImageComparison-images">
           <div className="ImageComparison-rightImageHolder">
-            <img className="ImageComparison-image" src={right} alt="" />
+            <img
+              className="ImageComparison-image"
+              src={right}
+              alt=""
+              onLoad={this.handleRightLoad}
+            />
 
             {this.renderInfoPoints(PLACES.RIGHT)}
           </div>
@@ -90,7 +95,12 @@ class ImageComparison extends Component {
                 transform: `translateX(${imageTransform})`
               }}
             >
-              <img className="ImageComparison-image" src={left} alt="" />
+              <img
+                className="ImageComparison-image"
+                src={left}
+                alt=""
+                onLoad={this.handleLeftLoad}
+              />
 
               {this.renderInfoPoints(PLACES.LEFT)}
             </div>
@@ -144,6 +154,14 @@ class ImageComparison extends Component {
   };
 
   handleWindowResize = () => {
+    this.geometryChange();
+  };
+
+  handleRightLoad = () => {
+    this.geometryChange();
+  };
+
+  handleLeftLoad = () => {
     this.geometryChange();
   };
 

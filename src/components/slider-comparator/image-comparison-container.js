@@ -144,23 +144,26 @@ class ImageComparisonContainer extends Component {
     });
   }
 
-  setPointX(clientX) {
+  setPointX(clientX, clientY) {
     const { separatorLeft, geometry } = this.state;
+
     const leftBorder = geometry.left;
     const rightBorder = geometry.left + geometry.width;
+    const topBorder = geometry.top;
+    const bottomBorder = geometry.top + geometry.height;
     const separatorLeftPosition = leftBorder + separatorLeft * geometry.width;
 
     const isPointerOverLeft = this.isPointerOverLeft(
-      clientX,
-      leftBorder,
-      separatorLeftPosition,
-      SEPARATOR_GAP
+      [clientX, clientY],
+      SEPARATOR_GAP,
+      [leftBorder, separatorLeftPosition],
+      [topBorder, bottomBorder]
     );
     const isPointerOverRight = this.isPointerOverRight(
-      clientX,
-      separatorLeftPosition,
-      rightBorder,
-      SEPARATOR_GAP
+      [clientX, clientY],
+      SEPARATOR_GAP,
+      [separatorLeftPosition, rightBorder],
+      [topBorder, bottomBorder]
     );
 
     if (isPointerOverLeft) {
@@ -225,14 +228,37 @@ class ImageComparisonContainer extends Component {
    * get-s
    **/
 
-  isPointerOverLeft(cursorPosition, startPoint, endPoint, gap) {
-    const offsetEndPoint = endPoint - gap;
-    return isInRange(cursorPosition, [startPoint, offsetEndPoint]);
+  isPointerOverLeft(
+    cursorCoordinates,
+    horizontalGap,
+    horizontalPoints,
+    verticalPoints
+  ) {
+    const [cursorPositionX, cursorPositionY] = cursorCoordinates;
+    const [startHorizontalPoint, endHorizontalPoint] = horizontalPoints;
+    const [startVerticalPoint, endVerticalPoint] = verticalPoints;
+    const offsetEndPoint = endHorizontalPoint - horizontalGap;
+    return (
+      isInRange(cursorPositionX, [startHorizontalPoint, offsetEndPoint]) &&
+      isInRange(cursorPositionY, [startVerticalPoint, endVerticalPoint])
+    );
   }
 
-  isPointerOverRight(cursorPosition, startPoint, endPoint, gap) {
-    const offsetStartPoint = startPoint + gap;
-    return isInRange(cursorPosition, [offsetStartPoint, endPoint]);
+  isPointerOverRight(
+    cursorCoordinates,
+    horizontalGap,
+    horizontalPoints,
+    verticalPoints
+  ) {
+    const [cursorPositionX, cursorPositionY] = cursorCoordinates;
+    const [startHorizontalPoint, endHorizontalPoint] = horizontalPoints;
+    const [startVerticalPoint, endVerticalPoint] = verticalPoints;
+
+    const offsetStartPoint = startHorizontalPoint + horizontalGap;
+    return (
+      isInRange(cursorPositionX, [offsetStartPoint, endHorizontalPoint]) &&
+      isInRange(cursorPositionY, [startVerticalPoint, endVerticalPoint])
+    );
   }
 
   getSeparatorPosition(separatorLeft, pointX, increaseByHover) {
@@ -348,10 +374,10 @@ class ImageComparisonContainer extends Component {
     this.pointerUp();
   };
 
-  handleMouseMove = ({ clientX }) => {
+  handleMouseMove = ({ clientX, clientY }) => {
     this.pointerMove(clientX);
 
-    this.setPointX(clientX);
+    this.setPointX(clientX, clientY);
   };
 
   /**--------------------------------------- */
