@@ -132,10 +132,6 @@ class ImageComparison extends Component {
                   <IconArrowRight />
                 </div>
               </div>
-
-              {/* <IconContainer> */}
-              {/* <IconResize /> */}
-              {/* </IconContainer> */}
             </div>
           </div>
         </div>
