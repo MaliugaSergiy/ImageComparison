@@ -1,23 +1,12 @@
-import React, { Component, PureComponent } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
 
 import Pointer from "./pointer.jsx";
-import toObject from "../slider-comparator/helpers/toObject";
 
 import "./info-point.css";
 
 const { string, oneOf, shape, number } = PropTypes;
-
-const HORIZONTAL_ORIENTATION = {
-  LEFT: "Left",
-  RIGHT: "Right"
-};
-
-const VERTICAL_ORIENTATION = {
-  UP: "Up",
-  DOWN: "Down"
-};
 
 class InfoPoint extends Component {
   static propTypes = {
@@ -29,14 +18,10 @@ class InfoPoint extends Component {
     place: oneOf(["left", "right", "both"])
   };
 
-  infoPointElement = null;
+  infoPointTextElement = null;
 
   render() {
     const { title, position, children, imageComparisonGeometry } = this.props;
-    console.log(
-      "​InfoPoint -> render -> imageComparisonGeometry",
-      imageComparisonGeometry
-    );
 
     const percentPosition = {
       top: `${position.top * 100}%`,
@@ -47,19 +32,23 @@ class InfoPoint extends Component {
       <div
         className={cn(
           "InfoPoint",
-          `InfoPoint--horizontalOrientation${
-            HORIZONTAL_ORIENTATION[this.getHorizontalOrientation()]
-          }`,
-          `InfoPoint--verticalOrientation${
-            VERTICAL_ORIENTATION[this.getVerticalOrientation()]
-          }`
+          `InfoPoint--horizontalOrientation${this.getHorizontalOrientationHash(
+            position,
+            this.infoPointTextElement,
+            imageComparisonGeometry
+          )}`,
+          `InfoPoint--verticalOrientation${this.getVerticalOrientationHash(
+            position,
+            this.infoPointTextElement,
+            imageComparisonGeometry
+          )}`
         )}
         style={percentPosition}
       >
-        <div className="InfoPoint-pointer">
+        <div className="InfoPoint-pointer" ref={this.setInfoPointElementRef}>
           <Pointer />
         </div>
-        <div className="InfoPoint-text" ref={this.setInfoPointElementRef}>
+        <div className="InfoPoint-text" ref={this.setInfoPointTextElementRef}>
           <div className="InfoPoint-title">{title}</div>
           <div className="InfoPoint-description">{children}</div>
         </div>
@@ -67,45 +56,87 @@ class InfoPoint extends Component {
     );
   }
 
-  getHorizontalOrientation() {
-    const containerRightBounder = this.props.imageComparisonGeometry.right;
+  getHorizontalOrientationHash(point, textElement, container) {
+    const defaultHash = "Right";
+    const bounderHash = "Left";
 
-    if (!this.infoPointElement) {
-      return "RIGHT";
+    const containerRightBounder = container.right;
+    const containerLeftBounder = container.left;
+    const containerWidth = container.width;
+
+    const pointLeftPosition =
+      containerLeftBounder + point.left * containerWidth;
+
+    if (!textElement) {
+      return;
     }
 
-    const infoPointGeometry = toObject(
-      this.infoPointElement.getBoundingClientRect()
-    );
+    const pointGeometry = textElement.getBoundingClientRect();
+    const pointTextWidth = pointGeometry.width;
+    const pointRightBounder = pointTextWidth + pointLeftPosition + 10;
 
-    const pointRightBounder = infoPointGeometry.right;
+    const makeGetOrientation = this.makeGetOrientation([
+      defaultHash,
+      bounderHash
+    ]);
 
-    if (containerRightBounder < pointRightBounder) {
-      return "LEFT";
-    }
+    const orientation = makeGetOrientation([
+      containerRightBounder,
+      pointRightBounder
+    ]);
 
-    return "RIGHT";
+    return orientation;
   }
 
-  getVerticalOrientation() {
-    const containerBottomBounder = this.props.imageComparisonGeometry.bottom;
+  getVerticalOrientationHash(point, textElement, container) {
+    const defaultHash = "Down";
+    const bounderHash = "Up";
 
-    if (!this.infoPointElement) {
-      return "DOWN";
+    const containerTopBounder = container.top;
+    const containerDownBounder = container.bottom;
+    const containerHeight = container.height;
+
+    const pointTopPosition = containerTopBounder + point.top * containerHeight;
+
+    if (!textElement) {
+      return;
     }
 
-    const infoPointGeometry = toObject(
-      this.infoPointElement.getBoundingClientRect()
-    );
+    const pointGeometry = textElement.getBoundingClientRect();
+    const pointTextHeight = pointGeometry.height;
+    const pointDownBounder = pointTextHeight + pointTopPosition + 10;
 
-    const pointBottomBounder = infoPointGeometry.bottom;
+    const makeGetOrientation = this.makeGetOrientation([
+      defaultHash,
+      bounderHash
+    ]);
 
-    if (containerBottomBounder < pointBottomBounder) {
-      return "UP";
-    }
+    const orientation = makeGetOrientation([
+      containerDownBounder,
+      pointDownBounder
+    ]);
 
-    return "DOWN";
+    return orientation;
   }
+
+  makeGetOrientation = hashOptions => bounderOptions => {
+    const [containerBounder, pointBounder] = bounderOptions;
+    const [defaultHash, bounderHash] = hashOptions;
+
+    if (containerBounder < pointBounder) {
+      return bounderHash;
+    }
+
+    return defaultHash;
+  };
+
+  setInfoPointTextElementRef = element => {
+    if (!element) {
+      return;
+    }
+
+    this.infoPointTextElement = element;
+  };
 
   setInfoPointElementRef = element => {
     if (!element) {

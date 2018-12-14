@@ -5,6 +5,7 @@
 }
 
 .InfoPoint-pointer {
+  padding: 8px;
 }
 
 .InfoPoint-text {
@@ -14,17 +15,17 @@
 }
 
 .InfoPoint--verticalOrientationDown .InfoPoint-text {
-  top: -8px;
+  top: 0px;
 }
 .InfoPoint--verticalOrientationUp .InfoPoint-text {
-  bottom: 8px;
+  bottom: 100%;
 }
 .InfoPoint--horizontalOrientationLeft .InfoPoint-text {
-  right: 16px;
+  right: 100%;
   text-align: right;
 }
 .InfoPoint--horizontalOrientationRight .InfoPoint-text {
-  left: 16px;
+  left: 100%;
   text-align: left;
 }
 

@@ -25,9 +25,8 @@ const infoPoints = [
     place: "right"
   },
   {
-    title: "right sdsdsd sdsdsdfssdgdfdfgdfgd",
-    description:
-      " dgdfg dfg dg df gdfg dfg dfg dg dg dg dfg dfg dgdfg dgdf gdfg dg dg dfg dfg dgdfg dgdf gdfg",
+    title: "right sdsdsd ",
+    description: " dgdfg dfg dg df gdfg ",
     position: { top: 0.8, left: 0.9 },
     place: "left"
   },
