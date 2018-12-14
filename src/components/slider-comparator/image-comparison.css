@@ -138,6 +138,12 @@
   width: 16px;
   height: 16px;
   display: inline-block;
+  position: relative;
+  transition: transform 0.2s ease-out;
+}
+
+.ImageComparison--isSeparatorMoving .ImageComparison-separatorIconLeft {
+  transform: translateX(-3px);
 }
 
 .ImageComparison--separatorStart .ImageComparison-separatorIconLeft {
@@ -148,6 +154,12 @@
   width: 16px;
   height: 16px;
   display: inline-block;
+  position: relative;
+  transition: transform 0.2s ease-out;
+}
+
+.ImageComparison--isSeparatorMoving .ImageComparison-separatorIconRight {
+  transform: translateX(3px);
 }
 
 .ImageComparison--separatorEnd .ImageComparison-separatorIconRight {

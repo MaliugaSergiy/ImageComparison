@@ -28,21 +28,24 @@ class InfoPoint extends Component {
       left: `${position.left * 100}%`
     };
 
+    const horizontalOrientationHash = this.getHorizontalOrientationHash(
+      position,
+      this.infoPointTextElement,
+      imageComparisonGeometry
+    );
+
+    const verticalOrientationHash = this.getVerticalOrientationHash(
+      position,
+      this.infoPointTextElement,
+      imageComparisonGeometry
+    );
+
     return (
       <div
-        className={cn(
-          "InfoPoint",
-          `InfoPoint--horizontalOrientation${this.getHorizontalOrientationHash(
-            position,
-            this.infoPointTextElement,
-            imageComparisonGeometry
-          )}`,
-          `InfoPoint--verticalOrientation${this.getVerticalOrientationHash(
-            position,
-            this.infoPointTextElement,
-            imageComparisonGeometry
-          )}`
-        )}
+        className={cn("InfoPoint", {
+          [`InfoPoint--horizontalOrientation${horizontalOrientationHash}`]: horizontalOrientationHash,
+          [`InfoPoint--verticalOrientation${verticalOrientationHash}`]: verticalOrientationHash
+        })}
         style={percentPosition}
       >
         <div className="InfoPoint-pointer" ref={this.setInfoPointElementRef}>
